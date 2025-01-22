@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, ExternalLink, Heart } from "lucide-react";
+import { BookmarkPlus, Copy, ExternalLink } from "lucide-react";
 import { useState } from "react";
 
 interface LevelOnePcProps {
@@ -76,9 +76,9 @@ const LevelOnePc = ({
                   variant="ghost"
                   size={'icon'}
           onClick={toggleFavorite}
-          className="text-red-600 hover:text-red-800 px-3 rounded-full"
+          className=" hover:text-red-800 px-3 rounded-full"
         >
-          <Heart fill={isFavorite ? "currentColor" : "none"} size={20} className="w-5 h-5 lg:w-6 lg:h-6" />
+          <BookmarkPlus fill={isFavorite ? "currentColor" : "none"} size={20} className="w-5 h-5 lg:w-6 lg:h-6" />
         </Button>
       </div>
 
