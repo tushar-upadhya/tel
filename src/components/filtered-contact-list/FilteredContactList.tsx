@@ -1,5 +1,5 @@
+// src/components/filtered-contact-list/FilteredContactList.tsx
 import ContactAccordionItem from "../contact-card/ContactAccordionItem";
-
 
 interface Contact {
   id: number;
@@ -14,7 +14,7 @@ interface FilteredContactListProps {
   searchQuery: string;
 }
 
-const FilteredContactList: React.FC<FilteredContactListProps> = ({ contacts, searchQuery }) => {
+const FilteredContactList= ({ contacts, searchQuery }:FilteredContactListProps) => {
   const filteredContacts = contacts.filter((contact) =>
     (contact.fullName || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
     (contact.department || "").toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -1,6 +1,8 @@
+import { setSearchQuery } from "@/features/searchQuerySlice";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useFetchContactDetails } from "@/hooks/use-telephone-directory";
-import { useState } from "react";
+import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
 import FilteredContactList from "../filtered-contact-list/FilteredContactList";
 import SearchBar from "../header/search-bar/SearchBar";
 import { Accordion } from "../ui/accordion";
@@ -10,15 +12,18 @@ interface ContactDetailsProps {
   selectedId: number | null;
 }
 
-const ContactDetails: React.FC<ContactDetailsProps> = ({ selectedId }) => {
+const ContactDetails = ({ selectedId }:ContactDetailsProps) => {
   const { data: contactDetails, isLoading, isError, error } = useFetchContactDetails(selectedId);
-  const [searchQuery, setSearchQuery] = useState<string>("");
 
+
+  const searchQuery = useSelector((state: RootState) => state.searchQuery.query);
+  const dispatch = useDispatch();
 
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    dispatch(setSearchQuery(e.target.value));
   };
 
   if (isLoading) return <Skeleton className="h-96 w-full" />;

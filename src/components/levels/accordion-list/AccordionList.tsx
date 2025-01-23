@@ -7,7 +7,7 @@ interface Child {
   id: number;
   name: string;
   color?: string;
-  childrens?: Child[] // Nested array for sub-level children
+  childrens?: Child[];
 }
 
 interface AccordionListProps {
@@ -16,7 +16,7 @@ interface AccordionListProps {
   setSelectedId: (id: number) => void;
 }
 
-const AccordionList: React.FC<AccordionListProps> = ({ childrens, selectedId, setSelectedId }) => {
+const AccordionList=({ childrens, selectedId, setSelectedId }:AccordionListProps) => {
   if (!Array.isArray(childrens) || childrens.length === 0) return null;
 
   return (
@@ -24,14 +24,14 @@ const AccordionList: React.FC<AccordionListProps> = ({ childrens, selectedId, se
       {childrens.map((child) => (
         <AccordionItem key={child.id} value={`item-${child.id}`}>
           <AccordionTrigger
-            className="m-1 mt-2 text-xs sm:text-lg font-semibold transition-all duration-200 hover:underline-offset-auto"
+            className="m-1 mt-2 text-[min(4vw,1rem)] font-semibold transition-all duration-200 hover:underline-offset-auto"
             style={{ color: child.color || "inherit" }}
             onClick={() => setSelectedId(child.id)}
           >
             <span>{child.name}</span>
           </AccordionTrigger>
           <AccordionContent>
-            <ScrollArea className="max-h-72 overflow-auto p-2 border rounded-md no-scrollbar">
+            <ScrollArea className="max-h-72 overflow-auto p-2 rounded-md no-scrollbar">
               {/* Render sub-levels */}
               <AccordionList childrens={child.childrens} selectedId={selectedId} setSelectedId={setSelectedId} />
             </ScrollArea>
