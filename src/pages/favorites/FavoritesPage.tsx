@@ -1,26 +1,45 @@
+import SearchBar from '@/components/header/search-bar/SearchBar';
+import CopyNumber from '@/components/shared/CopyNumber';
 import FavoriteToggle from '@/components/shared/FavoriteToggle';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { setSearchQuery } from '@/features/searchQuerySlice';
 import { RootState } from '@/store';
-import { Copy } from 'lucide-react';
 import React from 'react';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 const FavoritesPage: React.FC = () => {
   const favorites = useSelector((state: RootState) => state.favorites.favorites);
+  const searchQuery = useSelector((state: RootState) => state.searchQuery.query);
+  const dispatch = useDispatch();
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(e.target.value));
+  };
 
   return (
-    <div className="p-6">
-      <h1 className="text-[min(5vw,1.5rem)] font-semibold text-gray-800">Favorites</h1>
+      <div className="p-6">
+          <div className='flex flex-col sm:flex-row items-center gap-4 sm:gap-6'>
+              <h1 className="text-2xl font-semibold text-gray-800 whitespace-nowrap">
+                Favorites
+              </h1>
+
+              <SearchBar
+                query={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search contacts..."
+                className="w-full"
+              />
+          </div>
+
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {favorites.length > 0 ? (
           favorites.map((contact, index) => (
             <Card key={index} className="bg-[#FEF9F5] w-full cursor-pointer">
               <CardHeader className="flex justify-between items-center p-4 bg-[#F7EDE2] rounded-t-lg">
                 <div className="flex justify-between items-center w-full gap-4">
-                  <p className="text-[min(3.5vw,1rem)] font-semibold tracking-wide">{contact.fullName}</p>
+                  <p className="text-[min(3.5vw,1rem)] font-semibold tracking-wide">
+                    {contact.fullName}
+                  </p>
                   <FavoriteToggle
                     id={contact.id}
                     fullName={contact.fullName}
@@ -36,17 +55,8 @@ const FavoritesPage: React.FC = () => {
                     <p className="font-medium text-gray-800">Contact Numbers:</p>
                     <div className="flex flex-wrap gap-3 mt-2">
                       {Array.isArray(contact.contactList) &&
-                        contact.contactList.slice(0, 3).map((number, idx) => (
-                          <Button
-                            key={idx}
-                            size="sm"
-                            variant="outline"
-                            onClick={() => {}}
-                            className="flex items-center bg-white text-gray-600 hover:bg-gray-200"
-                          >
-                            <span className="mr-2">{number}</span>
-                            <Copy size={16} />
-                          </Button>
+                        contact.contactList.slice(0, 3).map((number, index) => (
+                          <CopyNumber key={index} number={number} />
                         ))}
                     </div>
                   </div>
@@ -60,13 +70,10 @@ const FavoritesPage: React.FC = () => {
                   </p>
                 </div>
               </CardContent>
-              <CardFooter className="text-center text-[min(3vw,1rem)] text-gray-500">
-                {/* Footer content */}
-              </CardFooter>
             </Card>
           ))
         ) : (
-          <p className="text-center text-gray-500">No favorites added.</p>
+          <p className="text-center text-gray-500 capitalize">No favorites added</p>
         )}
       </div>
     </div>

@@ -1,4 +1,3 @@
-
 import LevelOnPcSkeleton from "@/components/loading-skeleton/LevelOnPcSkeleton";
 import CopyNumber from "@/components/shared/CopyNumber";
 import FavoriteToggle from "@/components/shared/FavoriteToggle";

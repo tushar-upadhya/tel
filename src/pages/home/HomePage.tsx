@@ -4,11 +4,7 @@ import React from "react";
 
 
 const HomePage: React.FC = () => {
-  return (
-    <div className="">
-      <LevelOne />
-    </div>
-  );
+  return <LevelOne />
 };
 
 export default HomePage;
