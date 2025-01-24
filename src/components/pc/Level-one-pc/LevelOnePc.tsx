@@ -68,7 +68,7 @@ const LevelOnePc = ({ id, fullName, department, contactList, designation }: Leve
               size="sm"
               className="px-3 py-1 text-sm sm:text-base lg:text-sm"
             >
-              <Ellipsis className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5" />
+              <Ellipsis className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 animate-pulse" />
             </Button>
           </DialogTrigger>
           <DialogContent>

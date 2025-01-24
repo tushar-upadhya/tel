@@ -14,6 +14,16 @@ import Logo from "./logo/Logo";
 import SearchBar from "./search-bar/SearchBar";
 
 const Header: React.FC = () => {
+//   const searchQuery = useSelector((state: RootState) => state.searchQuery.query);
+//   const dispatch = useDispatch();
+
+// //   const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+
+//   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     dispatch(setSearchQuery(e.target.value));
+//   };
+
   return (
     <header className="w-full bg-[#FEF9F5]">
       <div className="container flex flex-wrap items-center justify-between p-4 mx-auto">
@@ -23,7 +33,12 @@ const Header: React.FC = () => {
         <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:mt-0">
           <div className="flex">
             {/* Search Bar */}
-            <SearchBar />
+                      <SearchBar
+        //                query={searchQuery}
+        //   onChange={handleSearchChange}
+        //   placeholder="Search contacts..."
+        //   className="text-sm sm:text-base justify-start w-full"
+                      />
             {/* Add to Favorites */}
             <AddToFav />
           </div>

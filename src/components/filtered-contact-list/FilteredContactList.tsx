@@ -1,5 +1,6 @@
 import ContactAccordionItem from "../contact-card/ContactAccordionItem";
 
+
 interface Contact {
   id: number;
   fullName?: string;
@@ -13,7 +14,7 @@ interface FilteredContactListProps {
   searchQuery: string;
 }
 
-const FilteredContactList= ({ contacts, searchQuery }:FilteredContactListProps) => {
+const FilteredContactList: React.FC<FilteredContactListProps> = ({ contacts, searchQuery }) => {
   const filteredContacts = contacts.filter((contact) =>
     (contact.fullName || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
     (contact.department || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -22,7 +23,7 @@ const FilteredContactList= ({ contacts, searchQuery }:FilteredContactListProps) 
   );
 
   if (filteredContacts.length === 0) {
-    return <p className="text-center text-gray-500 capitalize">No contacts match</p>;
+    return <p className="text-center text-gray-500">No contacts match your search query.</p>;
   }
 
   return (

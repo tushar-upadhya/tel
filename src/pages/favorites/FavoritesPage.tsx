@@ -1,22 +1,19 @@
+import FavoriteToggle from '@/components/shared/FavoriteToggle';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { removeFromFavorites } from '@/features/favoritesSlice';
 import { RootState } from '@/store';
-import { Copy, X } from 'lucide-react';
+import { Copy } from 'lucide-react';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 
 const FavoritesPage: React.FC = () => {
-  const dispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.favorites.favorites);
 
-  const handleRemoveFavorite = (contactId: string) => {
-    dispatch(removeFromFavorites(contactId));
-  };
 
   return (
     <div className="p-6">
-      <h1 className="text-[min(vw,1.5rem)] font-semibold text-gray-800">Favorites</h1>
+      <h1 className="text-[min(5vw,1.5rem)] font-semibold text-gray-800">Favorites</h1>
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {favorites.length > 0 ? (
           favorites.map((contact, index) => (
@@ -24,14 +21,13 @@ const FavoritesPage: React.FC = () => {
               <CardHeader className="flex justify-between items-center p-4 bg-[#F7EDE2] rounded-t-lg">
                 <div className="flex justify-between items-center w-full gap-4">
                   <p className="text-[min(3.5vw,1rem)] font-semibold tracking-wide">{contact.fullName}</p>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleRemoveFavorite(contact.id)}
-                    className="text-red-600 p-2"
-                  >
-                    <X size={20} />
-                  </Button>
+                  <FavoriteToggle
+                    id={contact.id}
+                    fullName={contact.fullName}
+                    department={contact.department}
+                    contactList={contact.contactList}
+                    designation={contact.designation}
+                  />
                 </div>
               </CardHeader>
               <CardContent className="p-4">
@@ -54,7 +50,7 @@ const FavoritesPage: React.FC = () => {
                         ))}
                     </div>
                   </div>
-                  <p className="flex text-[min(4vw,1rem)]  justify-between text-gray-700">
+                  <p className="flex text-[min(4vw,1rem)] justify-between text-gray-700">
                     <span className="font-medium">Designation:</span>
                     <span>{contact.designation}</span>
                   </p>

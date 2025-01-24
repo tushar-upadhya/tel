@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface SearchQueryState {
-  query: string;
+    query: string;
 }
 
 const initialSearchQueryState: SearchQueryState = {

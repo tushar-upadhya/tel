@@ -66,7 +66,7 @@ const FavoriteToggle = ({
       <BookmarkPlus
         fill={isFavorite ? "currentColor" : "none"}
         size={20}
-        className="w-5 h-5 lg:w-6 lg:h-6"
+        className="w-5 h-5 lg:w-6 lg:h-6 animate-pulse"
       />
     </Button>
   );
