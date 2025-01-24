@@ -7,8 +7,8 @@ export const useFetchLevelData = (levelId: number) => {
     queryKey: ["levelData", levelId],
     queryFn: () => fetchLevelData(levelId),
     staleTime: 5 * 60 * 1000, // Cache data for 5 minutes
-    refetchOnWindowFocus: false, // Avoid refetch on window focus
-    retry: 2, // Retry failed queries twice
+    refetchOnWindowFocus: false,
+    retry: 2,
   });
 };
 
@@ -19,7 +19,7 @@ export const useFetchContactDetails = (id: number | null) => {
     queryFn: () => fetchContactDetails(id!),
     enabled: !!id, // Fetch only if ID is valid
     staleTime: 10 * 60 * 1000, // Cache data for 10 minutes
-    refetchOnWindowFocus: false, // Avoid refetch on window focus
-    retry: 2, // Retry failed queries twice
+    refetchOnWindowFocus: false,
+    retry: 2,
   });
 };

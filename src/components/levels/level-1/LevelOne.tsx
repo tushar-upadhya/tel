@@ -1,10 +1,10 @@
-import AccordionList from "@/components/levels/accordion-list/AccordionList";
 import { Skeleton } from "@/components/ui/skeleton";
 import { setSelectedId } from "@/features/selectedLevelSlice";
 import { useFetchLevelData } from "@/hooks/use-telephone-directory";
 import { RootState } from "@/store";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AccordionList from "../accordion-list/AccordionList";
 
 const LevelOne: React.FC  = () => {
   const [currentLevel] = useState<number>(1);

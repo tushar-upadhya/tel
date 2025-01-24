@@ -1,14 +1,17 @@
-
+import copiedReducer from '@/features/copiedSlice';
 import favoritesReducer from '@/features/favoritesSlice';
 import searchQueryReducer from '@/features/searchQuerySlice';
 import selectedLevelReducer from '@/features/selectedLevelSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
+
 export const store = configureStore({
   reducer: {
         favorites: favoritesReducer,
         selectedLevel: selectedLevelReducer,
-      searchQuery: searchQueryReducer,
+        searchQuery: searchQueryReducer,
+        copied: copiedReducer,
+
   },
 });
 

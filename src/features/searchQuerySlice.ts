@@ -4,19 +4,21 @@ interface SearchQueryState {
   query: string;
 }
 
-const initialState: SearchQueryState = {
+const initialSearchQueryState: SearchQueryState = {
   query: '',
 };
 
 const searchQuerySlice = createSlice({
   name: 'searchQuery',
-  initialState,
+  initialState: initialSearchQueryState,
   reducers: {
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
   },
 });
+
+
 
 export const { setSearchQuery } = searchQuerySlice.actions;
 

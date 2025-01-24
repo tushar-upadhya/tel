@@ -1,4 +1,3 @@
-// src/components/filtered-contact-list/FilteredContactList.tsx
 import ContactAccordionItem from "../contact-card/ContactAccordionItem";
 
 interface Contact {
@@ -23,7 +22,7 @@ const FilteredContactList= ({ contacts, searchQuery }:FilteredContactListProps) 
   );
 
   if (filteredContacts.length === 0) {
-    return <p className="text-center text-gray-500">No contacts match your search query.</p>;
+    return <p className="text-center text-gray-500 capitalize">No contacts match</p>;
   }
 
   return (

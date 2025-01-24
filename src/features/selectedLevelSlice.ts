@@ -4,13 +4,13 @@ interface SelectedLevelState {
   selectedId: number | null;
 }
 
-const initialState: SelectedLevelState = {
+const initialSelectedLevelState: SelectedLevelState = {
   selectedId: null,
 };
 
 const selectedLevelSlice = createSlice({
   name: 'selectedLevel',
-  initialState,
+  initialState: initialSelectedLevelState,
   reducers: {
     setSelectedId(state, action: PayloadAction<number | null>) {
       state.selectedId = action.payload;

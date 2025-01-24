@@ -10,12 +10,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 interface LoginFormProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: FormData) => void;
 }
 
 const LogInForm = ({ onSubmit }: LoginFormProps) => {
-  const form = useForm({
+  const form = useForm<FormData>({
     defaultValues: {
       email: "",
       password: "",

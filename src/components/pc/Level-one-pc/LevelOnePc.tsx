@@ -1,12 +1,13 @@
+
+import LevelOnPcSkeleton from "@/components/loading-skeleton/LevelOnPcSkeleton";
+import CopyNumber from "@/components/shared/CopyNumber";
+import FavoriteToggle from "@/components/shared/FavoriteToggle";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { addToFavorites, removeFromFavorites } from "@/features/favoritesSlice";
-import { useToast } from "@/hooks/use-toast";
 import { RootState } from "@/store";
-import { BookmarkPlus, Copy, Ellipsis } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import LevelOnPcSkeleton from "../../loading-skeleton/LevelOnPcSkeleton";
+import { useSelector } from "react-redux";
 
 interface LevelOnePcProps {
   id: string;
@@ -17,11 +18,8 @@ interface LevelOnePcProps {
 }
 
 const LevelOnePc = ({ id, fullName, department, contactList, designation }: LevelOnePcProps) => {
-  const [isCopied, setIsCopied] = useState<{ [key: string]: boolean }>({});
-  const dispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.favorites.favorites);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const { toast } = useToast();
+  const [, setIsFavorite] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -32,52 +30,6 @@ const LevelOnePc = ({ id, fullName, department, contactList, designation }: Leve
     ? contactList.flatMap((item) => item.split(/[,\s]+/)).filter(Boolean)
     : String(contactList).split(/[,\s]+/).filter(Boolean);
 
-  const copyNumber = (number: string) => {
-    if (!navigator.clipboard) {
-      toast({
-        title: "Copy Failed",
-        description: "Clipboard access is not supported in your browser.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    navigator.clipboard.writeText(number).then(() => {
-      setIsCopied(prev => ({ ...prev, [number]: true }));
-      setTimeout(() => setIsCopied(prev => ({ ...prev, [number]: false })), 1500);
-      toast({
-        title: "Number Copied",
-        description: `Contact number ${number} has been copied to clipboard.`,
-        variant: "default",
-      });
-    });
-  };
-
-   const toggleFavorite = () => {
-    const contact = {
-      id,
-      fullName: fullName.trim(),
-      department: department.trim(),
-      contactList: contacts,
-      designation: designation.trim()
-    };
-
-    if (isFavorite) {
-      dispatch(removeFromFavorites(id));
-      toast({
-        title: "Removed from Favorites",
-        description: `${fullName} has been removed from your favorites.`,
-        variant: "destructive",
-      });
-    } else {
-      dispatch(addToFavorites(contact));
-      toast({
-        title: "Added to Favorites",
-        description: `${fullName} has been added to your favorites.`,
-        variant: "default",
-      });
-    }
-  };
 
   if (!fullName || !department || !contactList || contactList.length === 0) {
     return <LevelOnPcSkeleton />;
@@ -86,36 +38,20 @@ const LevelOnePc = ({ id, fullName, department, contactList, designation }: Leve
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-3 bg-[#FEF9F5] items-center p-4">
       <div className="flex items-center justify-start">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={toggleFavorite}
-          className="hover:text-red-800 px-3 rounded-full"
-        >
-          <BookmarkPlus
-            fill={isFavorite ? "currentColor" : "none"}
-            size={20}
-            className="w-5 h-5 lg:w-6 lg:h-6"
-          />
-        </Button>
+       <FavoriteToggle
+          id={id}
+          fullName={fullName}
+          department={department}
+          contactList={contacts}
+          designation={designation}
+        />
       </div>
       <div className="col-span-2 flex items-center justify-center lg:justify-start">
         <span className="font-semibold text-xl sm:text-lg lg:text-sm">{fullName}</span>
       </div>
       <div className="col-span-2 flex items-center justify-center lg:justify-start space-x-1">
         {contacts.slice(0, 1).map((number, index) => (
-          <Button
-            key={index}
-            size="sm"
-            variant="outline"
-            onClick={() => copyNumber(number)}
-            className="flex items-center px-2 py-1 text-sm sm:text-base lg:text-sm"
-          >
-            <span className="mr-1 text-xs sm:text-sm lg:text-sm">
-              {isCopied[number] ? "Copied!" : number}
-            </span>
-            <Copy size={16} className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5" />
-          </Button>
+           <CopyNumber key={index} number={number} />
         ))}
       </div>
       <div className="col-span-1 flex items-center justify-center lg:justify-start">
@@ -147,18 +83,7 @@ const LevelOnePc = ({ id, fullName, department, contactList, designation }: Leve
                 <p className="font-medium text-sm sm:text-base">Contact Numbers:</p>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {contacts.slice(1).map((number, index) => (
-                    <Button
-                      key={index}
-                      size="sm"
-                      variant="outline"
-                      onClick={() => copyNumber(number)}
-                      className="flex items-center px-2 py-1 text-sm"
-                    >
-                      <span className="mr-1 text-xs sm:text-sm">
-                        {isCopied[number] ? "Copied!" : number}
-                      </span>
-                      <Copy size={16} className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </Button>
+                    <CopyNumber key={index} number={number} />
                   ))}
                 </div>
               </div>
