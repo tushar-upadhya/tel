@@ -1,4 +1,5 @@
-import { setSearchQuery } from "@/features/searchQuerySlice";
+
+import { setSearchQuery } from "@/features/search/searchQuerySlice";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useFetchContactDetails } from "@/hooks/use-telephone-directory";
 import { RootState } from "@/store";

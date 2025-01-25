@@ -1,6 +1,7 @@
 import copiedReducer from '@/features/copiedSlice';
 import favoritesReducer from '@/features/favoritesSlice';
-import searchQueryReducer from '@/features/searchQuerySlice';
+import favoriteSearchQuerySlice from '@/features/search/favoriteSearchQuerySlice';
+import searchQueryReducer from '@/features/search/searchQuerySlice';
 import selectedLevelReducer from '@/features/selectedLevelSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -11,6 +12,7 @@ export const store = configureStore({
         selectedLevel: selectedLevelReducer,
         searchQuery: searchQueryReducer,
         copied: copiedReducer,
+        favoritesSearchQuery:favoriteSearchQuerySlice
 
   },
 });
