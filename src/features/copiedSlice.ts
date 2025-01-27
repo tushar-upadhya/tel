@@ -1,21 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CopiedState {
-  copiedNumber: string | null;
+    copiedNumber: string | null;
 }
 
 const initialState: CopiedState = {
-  copiedNumber: null,
+    copiedNumber: null,
 };
 
 const copiedSlice = createSlice({
-  name: 'copied',
-  initialState,
-  reducers: {
-    setCopiedNumber(state, action: PayloadAction<string | null>) {
-      state.copiedNumber = action.payload;
+    name: "copied",
+    initialState,
+    reducers: {
+        setCopiedNumber(state, action: PayloadAction<string | null>) {
+            state.copiedNumber = action.payload;
+        },
     },
-  },
 });
 
 export const { setCopiedNumber } = copiedSlice.actions;

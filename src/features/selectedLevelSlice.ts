@@ -1,21 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SelectedLevelState {
-  selectedId: number | null;
+    selectedId: number | null;
 }
 
 const initialSelectedLevelState: SelectedLevelState = {
-  selectedId: null,
+    selectedId: null,
 };
 
 const selectedLevelSlice = createSlice({
-  name: 'selectedLevel',
-  initialState: initialSelectedLevelState,
-  reducers: {
-    setSelectedId(state, action: PayloadAction<number | null>) {
-      state.selectedId = action.payload;
+    name: "selectedLevel",
+    initialState: initialSelectedLevelState,
+    reducers: {
+        setSelectedId(state, action: PayloadAction<number | null>) {
+            state.selectedId = action.payload;
+        },
     },
-  },
 });
 
 export const { setSelectedId } = selectedLevelSlice.actions;

@@ -1,21 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FavoriteSearchQueryState {
-  query: string;
+    query: string;
 }
 
 const initialFavoriteSearchQueryState: FavoriteSearchQueryState = {
-  query: '',
+    query: "",
 };
 
 const favoriteSearchQuerySlice = createSlice({
-  name: 'favoriteSearchQuery',
-  initialState: initialFavoriteSearchQueryState,
-  reducers: {
-    setFavoriteSearchQuery(state, action: PayloadAction<string>) {
-      state.query = action.payload;
+    name: "favoriteSearchQuery",
+    initialState: initialFavoriteSearchQueryState,
+    reducers: {
+        setFavoriteSearchQuery(state, action: PayloadAction<string>) {
+            state.query = action.payload;
+        },
     },
-  },
 });
 
 export const { setFavoriteSearchQuery } = favoriteSearchQuerySlice.actions;

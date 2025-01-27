@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SearchQueryState {
     query: string;
@@ -7,37 +7,37 @@ interface SearchQueryState {
 }
 
 const initialSearchQueryState: SearchQueryState = {
-  query: '',
-  level: 0,
-  subLevel: 0,
+    query: "",
+    level: 0,
+    subLevel: 0,
 };
 
 const searchQuerySlice = createSlice({
-  name: 'searchQuery',
-  initialState: initialSearchQueryState,
-  reducers: {
-    setSearchQuery: (state, action: PayloadAction<string>) => {
-      state.query = action.payload;
+    name: "searchQuery",
+    initialState: initialSearchQueryState,
+    reducers: {
+        setSearchQuery: (state, action: PayloadAction<string>) => {
+            state.query = action.payload;
+        },
+        setSearchLevel: (state, action: PayloadAction<number>) => {
+            state.level = action.payload;
+        },
+        setSearchSubLevel: (state, action: PayloadAction<number>) => {
+            state.subLevel = action.payload;
+        },
+        resetSearch: (state) => {
+            state.query = "";
+            state.level = 0;
+            state.subLevel = 0;
+        },
     },
-    setSearchLevel: (state, action: PayloadAction<number>) => {
-      state.level = action.payload;
-    },
-    setSearchSubLevel: (state, action: PayloadAction<number>) => {
-      state.subLevel = action.payload;
-    },
-    resetSearch: (state) => {
-      state.query = '';
-      state.level = 0;
-      state.subLevel = 0;
-    },
-  },
 });
 
 export const {
-  setSearchQuery,
-  setSearchLevel,
-  setSearchSubLevel,
-  resetSearch
+    setSearchQuery,
+    setSearchLevel,
+    setSearchSubLevel,
+    resetSearch,
 } = searchQuerySlice.actions;
 
 export default searchQuerySlice.reducer;
