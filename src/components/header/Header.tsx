@@ -14,61 +14,60 @@ import Logo from "./logo/Logo";
 import SearchBar from "./search-bar/SearchBar";
 
 const Header: React.FC = () => {
-//   const searchQuery = useSelector((state: RootState) => state.searchQuery.query);
-//   const dispatch = useDispatch();
+    //   const searchQuery = useSelector((state: RootState) => state.searchQuery.query);
+    //   const dispatch = useDispatch();
 
-// //   const debouncedSearchQuery = useDebounce(searchQuery, 500);
+    // //   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
+    //   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     dispatch(setSearchQuery(e.target.value));
+    //   };
 
-//   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     dispatch(setSearchQuery(e.target.value));
-//   };
+    return (
+        <header className="w-full bg-[#FEF9F5]">
+            <div className="container flex flex-wrap items-center justify-between p-4 mx-auto">
+                {/* Logo */}
+                <Logo />
 
-  return (
-    <header className="w-full bg-[#FEF9F5]">
-      <div className="container flex flex-wrap items-center justify-between p-4 mx-auto">
-        {/* Logo */}
-        <Logo />
+                <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:mt-0">
+                    <div className="flex">
+                        {/* Search Bar */}
+                        <SearchBar
+                        //                query={searchQuery}
+                        //   onChange={handleSearchChange}
+                        //   placeholder="Search contacts..."
+                        //   className="text-sm sm:text-base justify-start w-full"
+                        />
+                        {/* Add to Favorites */}
+                        <AddToFav />
+                    </div>
+                </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:mt-0">
-          <div className="flex">
-            {/* Search Bar */}
-                      <SearchBar
-        //                query={searchQuery}
-        //   onChange={handleSearchChange}
-        //   placeholder="Search contacts..."
-        //   className="text-sm sm:text-base justify-start w-full"
-                      />
-            {/* Add to Favorites */}
-            <AddToFav />
-          </div>
-        </div>
-
-        {/* Login-Signup Dialog */}
-        <Dialog>
-          <DialogTrigger asChild>
-            <Avatar className="cursor-pointer">
-              {/* Avatar Image */}
-              <AvatarImage
-                src="https://via.placeholder.com/150"
-                alt="User Avatar"
-              />
-              {/* Fallback if no image is available */}
-              <AvatarFallback className="bg-black">
-              <User className="text-white"/>
-              </AvatarFallback>
-            </Avatar>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogClose />
-            </DialogHeader>
-            <LogInSignup />
-          </DialogContent>
-        </Dialog>
-      </div>
-    </header>
-  );
+                {/* Login-Signup Dialog */}
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Avatar className="cursor-pointer">
+                            {/* Avatar Image */}
+                            <AvatarImage
+                                src="https://via.placeholder.com/150"
+                                alt="User Avatar"
+                            />
+                            {/* Fallback if no image is available */}
+                            <AvatarFallback className="bg-black">
+                                <User className="text-white" />
+                            </AvatarFallback>
+                        </Avatar>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogClose />
+                        </DialogHeader>
+                        <LogInSignup />
+                    </DialogContent>
+                </Dialog>
+            </div>
+        </header>
+    );
 };
 
 export default Header;
