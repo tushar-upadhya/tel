@@ -4,7 +4,7 @@ interface Contact {
     id: number;
     fullName?: string;
     department?: string;
-    contactList?: string;
+    contactList?: string[];
     designation?: string;
 }
 
@@ -28,7 +28,8 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
             (contact.designation || "")
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase()) ||
-            (contact.contactList || "")
+            (contact.contactList || [])
+                .join(", ")
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase())
     );
