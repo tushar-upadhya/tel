@@ -1,6 +1,6 @@
 import { setSearchQuery } from "@/features/search/searchQuerySlice";
 import { RootState } from "@/store";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddToFav from "./add-to-fav/AddToFav";
 import Logo from "./logo/Logo";
@@ -11,14 +11,14 @@ const Header = () => {
         (state: RootState) => state.searchQuery.query
     );
     const dispatch = useDispatch();
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    // const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setSearchQuery(e.target.value));
     };
 
     return (
-        <header className="w-full bg-[#FEF9F5]">
+        <header className="w-full bg-[#C1BAA1]">
             <div className="container flex flex-wrap items-center justify-between p-4 mx-auto">
                 {/* Logo */}
                 <Logo />
