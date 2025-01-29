@@ -28,24 +28,21 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
     } = useFetchContactDetails(selectedId);
 
     const [searchQuery, setSearchQuery] = useState<string>("");
-
     const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
     const filterContacts = (contacts: Contact[], query: string): Contact[] => {
-        return contacts.filter((contact) => {
-            const lowerQuery = query.toLowerCase();
-            return (
-                (contact.fullName?.toLowerCase().includes(lowerQuery) ??
-                    false) ||
-                (contact.department?.toLowerCase().includes(lowerQuery) ??
-                    false) ||
-                (contact.designation?.toLowerCase().includes(lowerQuery) ??
-                    false) ||
-                (contact.contactNumber?.toLowerCase().includes(lowerQuery) ??
-                    false) ||
-                (contact.childrens && contact.childrens.length > 0) // Keep level with sub-levels
-            );
-        });
+        if (!query) return contacts;
+
+        const lowerQuery = query.toLowerCase();
+
+        return contacts.filter((contact) =>
+            [
+                contact.fullName,
+                contact.department,
+                contact.designation,
+                contact.contactNumber,
+            ].some((field) => field?.toLowerCase().includes(lowerQuery))
+        );
     };
 
     if (isLoading) return <Skeleton className="h-96 w-full" />;
@@ -58,7 +55,7 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
             {/* Search Bar */}
             <div className="mb-3 sm:mb-4 flex justify-center w-full pt-2">
                 <SearchBar
-                    query={debouncedSearchQuery}
+                    query={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search contacts..."
                     className="text-sm sm:text-base justify-start w-full"
