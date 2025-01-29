@@ -6,6 +6,7 @@ interface Contact {
     department?: string;
     contactList?: string[];
     designation?: string;
+    childrens?: Contact[];
 }
 
 interface FilteredContactListProps {
@@ -17,22 +18,29 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
     contacts,
     searchQuery,
 }) => {
-    const filteredContacts = contacts.filter(
-        (contact) =>
-            (contact.fullName || "")
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-            (contact.department || "")
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-            (contact.designation || "")
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase()) ||
-            (contact.contactList || [])
-                .join(", ")
-                .toLowerCase()
-                .includes(searchQuery.toLowerCase())
-    );
+    // Recursive function to filter the contact and its children
+    const filterContacts = (contact: Contact): boolean => {
+        const searchLower = searchQuery;
+
+        const isMatch =
+            (contact.fullName ?? "").toLowerCase().includes(searchLower) ||
+            (contact.department ?? "").toLowerCase().includes(searchLower) ||
+            (contact.designation ?? "").toLowerCase().includes(searchLower) ||
+            (Array.isArray(contact.contactList)
+                ? contact.contactList.some((contactItem) =>
+                      (contactItem ?? "").toLowerCase().includes(searchLower)
+                  )
+                : false);
+
+        // Ensure filteredChildren is an array before checking length
+        const filteredChildren =
+            contact.childrens?.filter(filterContacts) || [];
+
+        return isMatch || filteredChildren.length > 0;
+    };
+
+    // Filter contacts based on the recursive function
+    const filteredContacts = contacts.filter(filterContacts);
 
     if (filteredContacts.length === 0) {
         return (

@@ -1,27 +1,21 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogHeader,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { User } from "lucide-react";
-import React from "react";
+import { setSearchQuery } from "@/features/search/searchQuerySlice";
+import { RootState } from "@/store";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AddToFav from "./add-to-fav/AddToFav";
-import LogInSignup from "./login-signup/LoginSignup";
 import Logo from "./logo/Logo";
 import SearchBar from "./search-bar/SearchBar";
 
-const Header: React.FC = () => {
-    //   const searchQuery = useSelector((state: RootState) => state.searchQuery.query);
-    //   const dispatch = useDispatch();
+const Header = () => {
+    const searchQuery = useSelector(
+        (state: RootState) => state.searchQuery.query
+    );
+    const dispatch = useDispatch();
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    // //   const debouncedSearchQuery = useDebounce(searchQuery, 500);
-
-    //   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     dispatch(setSearchQuery(e.target.value));
-    //   };
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(setSearchQuery(e.target.value));
+    };
 
     return (
         <header className="w-full bg-[#FEF9F5]">
@@ -33,10 +27,10 @@ const Header: React.FC = () => {
                     <div className="flex">
                         {/* Search Bar */}
                         <SearchBar
-                        //                query={searchQuery}
-                        //   onChange={handleSearchChange}
-                        //   placeholder="Search contacts..."
-                        //   className="text-sm sm:text-base justify-start w-full"
+                            query={searchQuery}
+                            onChange={handleSearchChange}
+                            placeholder="Search contacts..."
+                            className="text-sm sm:text-base justify-start w-full"
                         />
                         {/* Add to Favorites */}
                         <AddToFav />
@@ -44,15 +38,13 @@ const Header: React.FC = () => {
                 </div>
 
                 {/* Login-Signup Dialog */}
-                <Dialog>
+                {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Avatar className="cursor-pointer">
-                            {/* Avatar Image */}
                             <AvatarImage
                                 src="https://via.placeholder.com/150"
                                 alt="User Avatar"
                             />
-                            {/* Fallback if no image is available */}
                             <AvatarFallback className="bg-black">
                                 <User className="text-white" />
                             </AvatarFallback>
@@ -64,7 +56,7 @@ const Header: React.FC = () => {
                         </DialogHeader>
                         <LogInSignup />
                     </DialogContent>
-                </Dialog>
+                </Dialog> */}
             </div>
         </header>
     );

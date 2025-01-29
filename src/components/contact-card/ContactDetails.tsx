@@ -1,8 +1,6 @@
-import { setSearchQuery } from "@/features/search/searchQuerySlice";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useFetchContactDetails } from "@/hooks/use-telephone-directory";
-import { RootState } from "@/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import FilteredContactList from "../filtered-contact-list/FilteredContactList";
 import SearchBar from "../header/search-bar/SearchBar";
 import { Accordion } from "../ui/accordion";
@@ -10,6 +8,15 @@ import { Skeleton } from "../ui/skeleton";
 
 interface ContactDetailsProps {
     selectedId: number | null;
+}
+
+interface Contact {
+    id: number;
+    fullName?: string;
+    department?: string;
+    designation?: string;
+    contactNumber?: string;
+    childrens?: Contact[];
 }
 
 const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
@@ -20,15 +27,25 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
         error,
     } = useFetchContactDetails(selectedId);
 
-    const searchQuery = useSelector(
-        (state: RootState) => state.searchQuery.query
-    );
-    const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState<string>("");
 
-    const debouncedSearchQuery = useDebounce(searchQuery, 500);
+    const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSearchQuery(e.target.value));
+    const filterContacts = (contacts: Contact[], query: string): Contact[] => {
+        return contacts.filter((contact) => {
+            const lowerQuery = query.toLowerCase();
+            return (
+                (contact.fullName?.toLowerCase().includes(lowerQuery) ??
+                    false) ||
+                (contact.department?.toLowerCase().includes(lowerQuery) ??
+                    false) ||
+                (contact.designation?.toLowerCase().includes(lowerQuery) ??
+                    false) ||
+                (contact.contactNumber?.toLowerCase().includes(lowerQuery) ??
+                    false) ||
+                (contact.childrens && contact.childrens.length > 0) // Keep level with sub-levels
+            );
+        });
     };
 
     if (isLoading) return <Skeleton className="h-96 w-full" />;
@@ -41,8 +58,8 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
             {/* Search Bar */}
             <div className="mb-3 sm:mb-4 flex justify-center w-full pt-2">
                 <SearchBar
-                    query={searchQuery}
-                    onChange={handleSearchChange}
+                    query={debouncedSearchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search contacts..."
                     className="text-sm sm:text-base justify-start w-full"
                 />
@@ -51,7 +68,10 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
             {/* Filtered Contacts List */}
             <Accordion type="single" collapsible className="mt-2 sm:mt-4">
                 <FilteredContactList
-                    contacts={contactDetails}
+                    contacts={filterContacts(
+                        contactDetails,
+                        debouncedSearchQuery
+                    )}
                     searchQuery={debouncedSearchQuery}
                 />
             </Accordion>
