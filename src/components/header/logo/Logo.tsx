@@ -18,7 +18,7 @@ const Logo: React.FC = () => {
                 <br />
                 <span className="text-[min(4vw,0.9rem)]">
                     All India Institute Of Medical Sciences <br />
-                    AIIMS 110029
+                    Ansari Nagar Delhi 110029
                 </span>
             </span>
         </Link>
