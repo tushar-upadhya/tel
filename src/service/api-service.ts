@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.30.88:8080/telephone-directory/public";
+export const BASE_URL = "http://192.168.14.12:8080/telephone-directory/public";
 
 // Reusable fetch function to handle GET requests
 const fetchData = async (url: string) => {
@@ -19,9 +19,7 @@ const fetchData = async (url: string) => {
 
         return await response.json();
     } catch (error: unknown) {
-        // Type guard for error
         if (error instanceof Error) {
-            // Now we can safely access error.message
             throw new Error(`Network or API error: ${error.message}`);
         } else {
             throw new Error("An unknown error occurred.");
@@ -40,4 +38,12 @@ export const fetchContactDetails = async (id: number) => {
         throw new Error("Contact ID is required");
     }
     return fetchData(`${BASE_URL}/get-contact-details/${id}`);
+};
+
+// Fetch search contacts
+export const fetchSearchContacts = async (query: string) => {
+    if (!query) {
+        throw new Error("Search query is required");
+    }
+    return fetchData(`${BASE_URL}/search-contacts?query=${query}`);
 };

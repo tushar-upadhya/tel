@@ -1,17 +1,48 @@
+import {
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { setSearchQuery } from "@/features/search/searchQuerySlice";
+import { useFetchGlobalSearchContacts } from "@/hooks/use-telephone-directory";
 import { RootState } from "@/store";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddToFav from "./add-to-fav/AddToFav";
 import Logo from "./logo/Logo";
 import SearchBar from "./search-bar/SearchBar";
 
+const categories = [
+    { value: "fullName", label: "Full Name" },
+    { value: "designation", label: "Designation" },
+    { value: "department", label: "Department" },
+];
+
 const Header = () => {
+    const dispatch = useDispatch();
     const searchQuery = useSelector(
         (state: RootState) => state.searchQuery.query
     );
-    const dispatch = useDispatch();
-    // const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    const [searchCategory, setSearchCategory] = useState("fullName");
+    const [open, setOpen] = useState(false);
+    const { data, isLoading, error } =
+        useFetchGlobalSearchContacts(searchQuery);
+
+    useEffect(() => {
+        if (searchQuery.length >= 3) {
+            console.log("Searching for:", searchQuery, "in", searchCategory);
+        }
+    }, [searchQuery, searchCategory]);
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setSearchQuery(e.target.value));
@@ -20,43 +51,75 @@ const Header = () => {
     return (
         <header className="w-full bg-[#C1BAA1]">
             <div className="container flex flex-wrap items-center justify-between p-4 mx-auto">
-                {/* Logo */}
                 <Logo />
-
                 <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:mt-0">
-                    <div className="flex">
-                        {/* Search Bar */}
-                        <SearchBar
-                            query={searchQuery}
-                            onChange={handleSearchChange}
-                            placeholder="Search contacts..."
-                            className="text-sm sm:text-base justify-start w-full"
-                        />
-                        {/* Add to Favorites */}
+                    <div className="flex items-center gap-2">
+                        <Dialog open={open} onOpenChange={setOpen}>
+                            <DialogTrigger asChild>
+                                <button className="w-full">
+                                    <SearchBar
+                                        query={searchQuery}
+                                        onChange={handleSearchChange}
+                                        placeholder="Search..."
+                                        className="text-sm sm:text-base w-full cursor-pointer"
+                                    />
+                                </button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-md p-6 bg-white rounded-lg shadow-lg">
+                                <DialogTitle className="mb-4 text-lg font-semibold capitalize">
+                                    Searching by {searchCategory}
+                                </DialogTitle>
+                                <Select
+                                    value={searchCategory}
+                                    onValueChange={setSearchCategory}
+                                >
+                                    <SelectTrigger className="w-full mb-4">
+                                        <SelectValue placeholder="Select Category" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {categories.map((category) => (
+                                            <SelectItem
+                                                key={category.value}
+                                                value={category.value}
+                                            >
+                                                {category.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                <Input
+                                    value={searchQuery}
+                                    onChange={handleSearchChange}
+                                    placeholder={`Search by ${searchCategory}...`}
+                                    className="w-full"
+                                />
+                                {isLoading && <p>Loading...</p>}
+                                {error && (
+                                    <p className="text-red-500">
+                                        Error: {error.message}
+                                    </p>
+                                )}
+                                {data && searchQuery.length >= 3 && (
+                                    <div className="mt-4">
+                                        {data.length > 0 ? (
+                                            data.map((item: any) => (
+                                                <p
+                                                    key={item.id}
+                                                    className="text-gray-700"
+                                                >
+                                                    {item.name}
+                                                </p>
+                                            ))
+                                        ) : (
+                                            <p>No results found</p>
+                                        )}
+                                    </div>
+                                )}
+                            </DialogContent>
+                        </Dialog>
                         <AddToFav />
                     </div>
                 </div>
-
-                {/* Login-Signup Dialog */}
-                {/* <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                    <DialogTrigger asChild>
-                        <Avatar className="cursor-pointer">
-                            <AvatarImage
-                                src="https://via.placeholder.com/150"
-                                alt="User Avatar"
-                            />
-                            <AvatarFallback className="bg-black">
-                                <User className="text-white" />
-                            </AvatarFallback>
-                        </Avatar>
-                    </DialogTrigger>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogClose />
-                        </DialogHeader>
-                        <LogInSignup />
-                    </DialogContent>
-                </Dialog> */}
             </div>
         </header>
     );
