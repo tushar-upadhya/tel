@@ -1,6 +1,5 @@
 export const BASE_URL = "http://192.168.14.12:8080/telephone-directory/public";
 
-// Reusable fetch function to handle GET requests
 const fetchData = async (url: string) => {
     try {
         const response = await fetch(url, {
