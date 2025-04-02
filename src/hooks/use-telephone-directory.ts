@@ -11,10 +11,10 @@ export const useFetchLevelData = (levelId: number) =>
     useQuery<Directory, Error>({
         queryKey: ["levelData", levelId],
         queryFn: () => fetchLevelData(levelId),
-        staleTime: 5 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
-        refetchOnWindowFocus: false,
-        retry: 2,
+        staleTime: 2 * 60 * 1000,
+        gcTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: true,
+        retry: 1,
     });
 
 export const useFetchContactDetails = (id: number | null) =>
@@ -22,22 +22,22 @@ export const useFetchContactDetails = (id: number | null) =>
         queryKey: ["contactDetails", id],
         queryFn: () => fetchContactDetails(id!),
         enabled: !!id,
-        staleTime: 10 * 60 * 1000,
-        gcTime: 15 * 60 * 1000,
-        refetchOnWindowFocus: false,
-        retry: 2,
+        staleTime: 5 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
+        refetchOnWindowFocus: true,
+        retry: 1,
         placeholderData: undefined,
     });
 
 export const useFetchGlobalSearchContacts = (query: string) => {
-    const debouncedQuery = useDebounce(query, 300);
+    const debouncedQuery = useDebounce(query, 200);
     return useQuery<Directory[], Error>({
         queryKey: ["searchContacts", debouncedQuery],
         queryFn: () => fetchSearchContacts(debouncedQuery),
         enabled: !!debouncedQuery && debouncedQuery.length >= 3,
-        staleTime: 5 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
-        refetchOnWindowFocus: false,
-        retry: 2,
+        staleTime: 2 * 60 * 1000,
+        gcTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: true,
+        retry: 1,
     });
 };

@@ -19,8 +19,7 @@ const getNetworkSpeed = (): number | null => {
 const fetchData = async <T>(url: string): Promise<T> => {
     try {
         const networkSpeed = getNetworkSpeed();
-        const timeout =
-            networkSpeed !== null && networkSpeed < 1 ? 25000 : 10000; // ⏳ Adjust timeout for slow networks
+        const timeout = networkSpeed !== null && networkSpeed < 1 ? 5000 : 8000; // ⏳ Reduce timeout for 3G
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeout);
@@ -30,6 +29,8 @@ const fetchData = async <T>(url: string): Promise<T> => {
             headers: {
                 "Content-Type": "application/json",
                 "Cache-Control": "no-cache",
+                Connection: "keep-alive", // ✅ Reuse connections
+                "Accept-Encoding": "gzip, deflate, br", // ✅ Enable compression
             },
             signal: controller.signal,
         });
