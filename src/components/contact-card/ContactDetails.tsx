@@ -1,6 +1,8 @@
 import { useDebounce } from "@/hooks/use-debounce";
 import { useFetchContactDetails } from "@/hooks/use-telephone-directory";
 import { useState } from "react";
+
+import { Contact } from "@/lib/types/type";
 import FilteredContactList from "../filtered-contact-list/FilteredContactList";
 import SearchBar from "../header/search-bar/SearchBar";
 import { Accordion } from "../ui/accordion";
@@ -8,15 +10,6 @@ import { Skeleton } from "../ui/skeleton";
 
 interface ContactDetailsProps {
     selectedId: number | null;
-}
-
-interface Contact {
-    id: number;
-    fullName?: string;
-    department?: string;
-    designation?: string;
-    contactNumber?: string;
-    childrens?: Contact[];
 }
 
 const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
@@ -40,8 +33,8 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
                 contact.fullName,
                 contact.department,
                 contact.designation,
-                contact.contactNumber,
-            ].some((field) => field?.toLowerCase().includes(lowerQuery))
+                contact.contactList,
+            ].some((field) => field?.includes(lowerQuery))
         );
     };
 

@@ -1,4 +1,3 @@
-// Type definitions (for reference)
 export interface Directory {
     id: number;
     name: string;
@@ -16,13 +15,14 @@ export interface Directory {
 }
 
 export interface Contact {
+    id: number;
     fullName: string;
     designation: string;
     department: string;
-    contactList: string;
+    contactList: string[];
     fax: string | null;
-    officialContactList: string | null;
-    residentialContactList: string | null;
+    officialContactList: string[] | null;
+    residentialContactList: string[] | null;
     address: string | null;
     privacy: "public" | "private";
     email: string | null;
