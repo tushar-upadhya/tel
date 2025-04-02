@@ -7,6 +7,37 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AccordionList from "../accordion-list/AccordionList";
 
+interface Child {
+    id: number;
+    name: string;
+    color?: string;
+    childrens?: Child[];
+}
+
+interface Directory {
+    id: number;
+    name: string;
+    post: string;
+    roomNo: string;
+    contactNo: string;
+    department: string;
+    privacy: "public" | "private";
+    status: "active" | "inactive";
+    color: string | null;
+    childrens: Directory[];
+}
+
+const convertToChild = (directories: Directory[]): Child[] => {
+    return directories.map((directory) => ({
+        id: directory.id,
+        name: directory.name,
+        color: directory.color ?? undefined,
+        childrens: directory.childrens
+            ? convertToChild(directory.childrens)
+            : [],
+    }));
+};
+
 const LevelOne: React.FC = () => {
     const [currentLevel] = useState<number>(1);
 
@@ -59,12 +90,7 @@ const LevelOne: React.FC = () => {
         <div className="w-full">
             <div className="container sm:p-4 bg-[#FEF9F5] rounded-md">
                 <AccordionList
-                    childrens={(levelData?.childrens ?? [])
-                        .filter((child) => child !== undefined) // ✅ Remove undefined values
-                        .map((child) => ({
-                            ...child,
-                            color: child.color ?? undefined, // ✅ Ensure color is always valid
-                        }))}
+                    childrens={convertToChild(levelData?.childrens ?? [])}
                     selectedId={selectedId}
                     setSelectedId={handleSetSelectedId}
                 />

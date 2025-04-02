@@ -18,25 +18,20 @@ interface AccordionListProps {
     childrens?: Child[];
     selectedId: number | null;
     setSelectedId: (id: number) => void;
-    searchQuery?: string; // Optional
+    searchQuery?: string;
 }
 
 const AccordionList = ({
-    childrens = [], // ✅ Default to an empty array
+    childrens = [],
     selectedId,
     setSelectedId,
     searchQuery = "",
 }: AccordionListProps) => {
     if (!Array.isArray(childrens) || childrens.length === 0) return null;
 
-    // ✅ Ensure `filteredChildrens` is never undefined
-    const filteredChildrens = Array.isArray(childrens)
-        ? childrens.filter((child) => {
-              const name = child.name?.toLowerCase() || "";
-              const query = searchQuery.toLowerCase();
-              return name.includes(query);
-          })
-        : [];
+    const filteredChildrens = childrens.filter((child) =>
+        child.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <Accordion type="single" collapsible className="pl-4">
@@ -52,7 +47,7 @@ const AccordionList = ({
                     <AccordionContent>
                         <ScrollArea className="p-2 overflow-auto rounded-md max-h-72 no-scrollbar">
                             <AccordionList
-                                childrens={child.childrens ?? []} // ✅ Always pass an array
+                                childrens={child.childrens ?? []}
                                 selectedId={selectedId}
                                 setSelectedId={setSelectedId}
                                 searchQuery={searchQuery}
