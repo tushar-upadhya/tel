@@ -13,13 +13,18 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { setSearchQuery } from "@/features/search/searchQuerySlice";
+import { useDebounce } from "@/hooks/use-debounce";
 import { useFetchGlobalSearchContacts } from "@/hooks/use-telephone-directory";
 import { RootState } from "@/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddToFav from "./add-to-fav/AddToFav";
 import Logo from "./logo/Logo";
-import SearchBar from "./search-bar/SearchBar";
+
+interface SearchItem {
+    id: string;
+    name: string;
+}
 
 const categories = [
     { value: "fullName", label: "Full Name" },
@@ -27,26 +32,34 @@ const categories = [
     { value: "department", label: "Department" },
 ];
 
-const Header = () => {
+const Header = React.memo(() => {
     const dispatch = useDispatch();
     const searchQuery = useSelector(
         (state: RootState) => state.searchQuery.query
     );
+    const [searchCategory, setSearchCategory] = useState<string>("fullName");
+    const [open, setOpen] = useState<boolean>(false);
+    const debouncedQuery = useDebounce(searchQuery, 300);
+    const { data, isLoading, error } = useFetchGlobalSearchContacts(
+        debouncedQuery
+    ) as {
+        data: SearchItem[] | undefined;
+        isLoading: boolean;
+        error: Error | null;
+    };
 
-    const [searchCategory, setSearchCategory] = useState("fullName");
-    const [open, setOpen] = useState(false);
-    const { data, isLoading, error } =
-        useFetchGlobalSearchContacts(searchQuery);
+    const handleSearchChange = React.useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            dispatch(setSearchQuery(e.target.value));
+        },
+        [dispatch]
+    );
 
     useEffect(() => {
-        if (searchQuery.length >= 3) {
-            console.log("Searching for:", searchQuery, "in", searchCategory);
+        if (debouncedQuery.length >= 3) {
+            console.log("Searching for:", debouncedQuery, "in", searchCategory);
         }
-    }, [searchQuery, searchCategory]);
-
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(setSearchQuery(e.target.value));
-    };
+    }, [debouncedQuery, searchCategory]);
 
     return (
         <header className="w-full bg-[#C1BAA1]">
@@ -56,14 +69,14 @@ const Header = () => {
                     <div className="flex items-center gap-2">
                         <Dialog open={open} onOpenChange={setOpen}>
                             <DialogTrigger asChild>
-                                <button className="w-full">
+                                {/* <button className="w-full">
                                     <SearchBar
                                         query={searchQuery}
                                         onChange={handleSearchChange}
                                         placeholder="Search..."
-                                        className="text-sm sm:text-base w-full cursor-pointer"
+                                        className="w-full text-sm cursor-pointer sm:text-base"
                                     />
-                                </button>
+                                </button> */}
                             </DialogTrigger>
                             <DialogContent className="max-w-md p-6 bg-white rounded-lg shadow-lg">
                                 <DialogTitle className="mb-4 text-lg font-semibold capitalize">
@@ -102,7 +115,7 @@ const Header = () => {
                                 {data && searchQuery.length >= 3 && (
                                     <div className="mt-4">
                                         {data.length > 0 ? (
-                                            data.map((item: any) => (
+                                            data.map((item: SearchItem) => (
                                                 <p
                                                     key={item.id}
                                                     className="text-gray-700"
@@ -123,6 +136,6 @@ const Header = () => {
             </div>
         </header>
     );
-};
+});
 
 export default Header;

@@ -1,40 +1,42 @@
+import { Contact, Directory } from "@/lib/types/type";
 import {
     fetchContactDetails,
     fetchLevelData,
     fetchSearchContacts,
 } from "@/service/api-service";
 import { useQuery } from "@tanstack/react-query";
+import { useDebounce } from "./use-debounce";
 
-// Fetch Level Data Hook
-export const useFetchLevelData = (levelId: number) => {
-    return useQuery({
+export const useFetchLevelData = (levelId: number) =>
+    useQuery<Directory, Error>({
         queryKey: ["levelData", levelId],
         queryFn: () => fetchLevelData(levelId),
-        staleTime: 5 * 60 * 1000, // Cache data for 5 minutes
+        staleTime: 5 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
         refetchOnWindowFocus: false,
         retry: 2,
     });
-};
 
-// Fetch Contact Details Hook
-export const useFetchContactDetails = (id: number | null) => {
-    return useQuery({
+export const useFetchContactDetails = (id: number | null) =>
+    useQuery<Contact, Error>({
         queryKey: ["contactDetails", id],
         queryFn: () => fetchContactDetails(id!),
         enabled: !!id,
-        staleTime: 10 * 60 * 1000, // Cache data for 10 minutes
+        staleTime: 10 * 60 * 1000,
+        gcTime: 15 * 60 * 1000,
         refetchOnWindowFocus: false,
         retry: 2,
+        placeholderData: undefined,
     });
-};
 
-// Fetch Search Contacts Hook
 export const useFetchGlobalSearchContacts = (query: string) => {
-    return useQuery({
-        queryKey: ["searchContacts", query],
-        queryFn: () => fetchSearchContacts(query),
-        enabled: !!query, // Fetch only if query is valid
-        staleTime: 5 * 60 * 1000, // Cache data for 5 minutes
+    const debouncedQuery = useDebounce(query, 300);
+    return useQuery<Directory[], Error>({
+        queryKey: ["searchContacts", debouncedQuery],
+        queryFn: () => fetchSearchContacts(debouncedQuery),
+        enabled: !!debouncedQuery && debouncedQuery.length >= 3,
+        staleTime: 5 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
         refetchOnWindowFocus: false,
         retry: 2,
     });
