@@ -18,24 +18,25 @@ interface AccordionListProps {
     childrens?: Child[];
     selectedId: number | null;
     setSelectedId: (id: number) => void;
-    searchQuery?: string; // Made optional to handle parent components not passing it
+    searchQuery?: string; // Optional
 }
 
 const AccordionList = ({
-    childrens,
+    childrens = [], // ✅ Default to an empty array
     selectedId,
     setSelectedId,
-    searchQuery = "", // Default to empty string if not provided
+    searchQuery = "",
 }: AccordionListProps) => {
     if (!Array.isArray(childrens) || childrens.length === 0) return null;
 
-    // Safely filter childrens considering possible undefined/null values
-    const filteredChildrens = childrens.filter((child) => {
-        const name = child.name?.toLowerCase() || "";
-        const query =
-            typeof searchQuery === "string" ? searchQuery.toLowerCase() : "";
-        return name.includes(query);
-    });
+    // ✅ Ensure `filteredChildrens` is never undefined
+    const filteredChildrens = Array.isArray(childrens)
+        ? childrens.filter((child) => {
+              const name = child.name?.toLowerCase() || "";
+              const query = searchQuery.toLowerCase();
+              return name.includes(query);
+          })
+        : [];
 
     return (
         <Accordion type="single" collapsible className="pl-4">
@@ -49,9 +50,9 @@ const AccordionList = ({
                         <span>{child.name}</span>
                     </AccordionTrigger>
                     <AccordionContent>
-                        <ScrollArea className="max-h-72 overflow-auto p-2 rounded-md no-scrollbar">
+                        <ScrollArea className="p-2 overflow-auto rounded-md max-h-72 no-scrollbar">
                             <AccordionList
-                                childrens={child.childrens}
+                                childrens={child.childrens ?? []} // ✅ Always pass an array
                                 selectedId={selectedId}
                                 setSelectedId={setSelectedId}
                                 searchQuery={searchQuery}

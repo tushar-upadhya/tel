@@ -22,7 +22,7 @@ const CopyNumber = ({ number }: CopyNumberProps) => {
                 description: `Calling ${number}...`,
                 variant: "default",
             });
-        } catch (error) {
+        } catch {
             toast({
                 title: "Dial Failed",
                 description: "Unable to open dial pad. Please try manually.",

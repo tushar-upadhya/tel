@@ -11,10 +11,10 @@ export const useFetchLevelData = (levelId: number) =>
     useQuery<Directory, Error>({
         queryKey: ["levelData", levelId],
         queryFn: () => fetchLevelData(levelId),
-        staleTime: 2 * 60 * 1000,
+        staleTime: 2 * 60 * 1000, // ⏳ Reduce stale time
         gcTime: 5 * 60 * 1000,
-        refetchOnWindowFocus: true,
-        retry: 1,
+        refetchOnWindowFocus: true, // ✅ Get fresh data when user returns
+        retry: 1, // 🔄 Fewer retries to save time on slow networks
     });
 
 export const useFetchContactDetails = (id: number | null) =>
@@ -24,13 +24,13 @@ export const useFetchContactDetails = (id: number | null) =>
         enabled: !!id,
         staleTime: 5 * 60 * 1000,
         gcTime: 10 * 60 * 1000,
-        refetchOnWindowFocus: true,
+        refetchOnWindowFocus: true, // ✅ Auto-refresh on focus
         retry: 1,
         placeholderData: undefined,
     });
 
 export const useFetchGlobalSearchContacts = (query: string) => {
-    const debouncedQuery = useDebounce(query, 200);
+    const debouncedQuery = useDebounce(query, 200); // ✅ Faster debounce
     return useQuery<Directory[], Error>({
         queryKey: ["searchContacts", debouncedQuery],
         queryFn: () => fetchSearchContacts(debouncedQuery),
