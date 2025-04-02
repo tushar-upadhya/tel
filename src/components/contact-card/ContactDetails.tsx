@@ -45,20 +45,26 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
         );
     };
 
-    if (isLoading) return <Skeleton className="h-96 w-full" />;
+    if (isLoading) return <Skeleton className="w-full h-96" />;
     if (isError) return <p>Error: {(error as Error).message}</p>;
-    if (!contactDetails || contactDetails.length === 0)
-        return <p>No contacts available</p>;
+
+    const contactsArray = Array.isArray(contactDetails)
+        ? contactDetails
+        : contactDetails
+        ? [contactDetails]
+        : [];
+
+    if (contactsArray.length === 0) return <p>No contacts available</p>;
 
     return (
         <>
             {/* Search Bar */}
-            <div className="mb-3 sm:mb-4 flex justify-center w-full pt-2">
+            <div className="flex justify-center w-full pt-2 mb-3 sm:mb-4">
                 <SearchBar
                     query={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search contacts..."
-                    className="text-sm sm:text-base justify-start w-full"
+                    className="justify-start w-full text-sm sm:text-base"
                 />
             </div>
 
@@ -66,7 +72,7 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
             <Accordion type="single" collapsible className="mt-2 sm:mt-4">
                 <FilteredContactList
                     contacts={filterContacts(
-                        contactDetails,
+                        contactsArray,
                         debouncedSearchQuery
                     )}
                     searchQuery={debouncedSearchQuery}
