@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.14.12:8080/telephone-directory/public";
+export const BASE_URL = "http://192.168.30.88:8080/telephone-directory/public";
 
 const fetchData = async (url: string) => {
     try {
