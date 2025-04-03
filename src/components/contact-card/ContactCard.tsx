@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { RootState } from "@/store";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import ContactCardSkeleton from "../loading-skeleton/ContactCardSkeleton";
 import CopyNumber from "../shared/CopyNumber";
@@ -14,6 +14,14 @@ interface ContactCardProps {
     designation: string;
 }
 
+interface Favorite {
+    id: string;
+}
+
+const fetchFavoriteStatus = async (id: string, favorites: Favorite[]) => {
+    return favorites.some((favorite) => favorite.id === id);
+};
+
 const ContactCard = ({
     id,
     fullName,
@@ -24,11 +32,12 @@ const ContactCard = ({
     const favorites = useSelector(
         (state: RootState) => state.favorites.favorites
     );
-    const [, setIsFavorite] = useState(false);
 
-    useEffect(() => {
-        setIsFavorite(favorites.some((favorite) => favorite.id === id));
-    }, [favorites, id]);
+    const { data: isFavorite, isLoading } = useQuery({
+        queryKey: ["favoriteStatus", id],
+        queryFn: () => fetchFavoriteStatus(id, favorites),
+        staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    });
 
     const contacts = Array.isArray(contactList)
         ? contactList
@@ -51,7 +60,11 @@ const ContactCard = ({
             <CardHeader className="flex justify-between items-center px-4 py-2 bg-[#F7EDE2] rounded-t-md">
                 <div className="flex items-center space-x-2">
                     <div className="text-[min(3.5vw,1rem)] font-semibold tracking-wide">
-                        Add To Favorite
+                        {isLoading
+                            ? "Checking..."
+                            : isFavorite
+                            ? "Favorited"
+                            : "Add to Favorite"}
                     </div>
                     <FavoriteToggle
                         id={id}

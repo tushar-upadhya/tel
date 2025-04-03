@@ -2,11 +2,18 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { useFetchContactDetails } from "@/hooks/use-telephone-directory";
 import { useState } from "react";
 
-import { Contact } from "@/lib/types/type";
 import FilteredContactList from "../filtered-contact-list/FilteredContactList";
 import SearchBar from "../header/search-bar/SearchBar";
 import { Accordion } from "../ui/accordion";
 import { Skeleton } from "../ui/skeleton";
+
+export interface Contact {
+    id: number;
+    fullName: string;
+    department: string;
+    designation: string;
+    contactList: string[];
+}
 
 interface ContactDetailsProps {
     selectedId: number | null;

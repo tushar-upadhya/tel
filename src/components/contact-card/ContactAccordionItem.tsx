@@ -25,9 +25,9 @@ const ContactAccordionItem: React.FC<ContactAccordionItemProps> = ({
 }) => (
     <div>
         {/* Mobile View */}
-        <div className="block lg:hidden transition-all ease-in-out duration-500 opacity-100 transform lg:opacity-0 lg:-translate-x-10">
+        <div className="block transition-all duration-500 ease-in-out transform opacity-100 lg:hidden lg:opacity-0 lg:-translate-x-10">
             <AccordionItem value={`contact-${contact.id}`}>
-                <AccordionTrigger className="transition-all ease-in-out duration-300">
+                <AccordionTrigger className="transition-all duration-300 ease-in-out">
                     <Phone
                         size={15}
                         className="text-[#5C8374] animate-pulse"
@@ -36,7 +36,7 @@ const ContactAccordionItem: React.FC<ContactAccordionItemProps> = ({
                     {contact.fullName || "Unnamed Contact"}
                 </AccordionTrigger>
                 <AccordionContent>
-                    <ScrollArea className="h-92 w-full overflow-auto rounded-md border border-gray-200 p-2 shadow-sm">
+                    <ScrollArea className="w-full p-2 overflow-auto border border-gray-200 rounded-md shadow-sm h-92">
                         <ContactCard
                             id={String(contact.id)}
                             fullName={contact.fullName || "Unnamed Contact"}
@@ -54,7 +54,7 @@ const ContactAccordionItem: React.FC<ContactAccordionItemProps> = ({
         </div>
 
         {/* Desktop View */}
-        <div className="hidden lg:block transition-all ease-in-out duration-500 opacity-0 transform -translate-x-10 lg:opacity-100 lg:translate-x-0">
+        <div className="hidden transition-all duration-500 ease-in-out transform -translate-x-10 opacity-0 lg:block lg:opacity-100 lg:translate-x-0">
             <LevelOnePc
                 id={String(contact.id)}
                 fullName={contact.fullName || "Unnamed Contact"}

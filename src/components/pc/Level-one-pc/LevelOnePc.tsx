@@ -9,10 +9,8 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { RootState } from "@/store";
 import { Ellipsis } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 
 interface LevelOnePcProps {
     id: string;
@@ -29,15 +27,7 @@ const LevelOnePc = ({
     contactList,
     designation,
 }: LevelOnePcProps) => {
-    const favorites = useSelector(
-        (state: RootState) => state.favorites.favorites
-    );
-    const [, setIsFavorite] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-    useEffect(() => {
-        setIsFavorite(favorites.some((favorite) => favorite.id === id));
-    }, [favorites, id]);
 
     const contacts = Array.isArray(contactList)
         ? contactList.flatMap((item) => item.split(/[,\s]+/)).filter(Boolean)
@@ -60,27 +50,27 @@ const LevelOnePc = ({
                     designation={designation}
                 />
             </div>
-            <div className="col-span-2 flex items-center justify-center lg:justify-start">
-                <span className="font-semibold text-xl sm:text-lg lg:text-sm">
+            <div className="flex items-center justify-center col-span-2 lg:justify-start">
+                <span className="text-xl font-semibold sm:text-lg lg:text-sm">
                     {fullName}
                 </span>
             </div>
-            <div className="col-span-2 flex items-center justify-center lg:justify-start space-x-1">
+            <div className="flex items-center justify-center col-span-2 space-x-1 lg:justify-start">
                 {contacts.slice(0, 1).map((number, index) => (
                     <CopyNumber key={index} number={number} />
                 ))}
             </div>
-            <div className="col-span-1 flex items-center justify-center lg:justify-start">
-                <p className="font-medium text-sm sm:text-base lg:text-sm">
+            <div className="flex items-center justify-center col-span-1 lg:justify-start">
+                <p className="text-sm font-medium sm:text-base lg:text-sm">
                     {designation}
                 </p>
             </div>
-            <div className="col-span-1 flex items-center justify-center lg:justify-start">
+            <div className="flex items-center justify-center col-span-1 lg:justify-start">
                 <p className="text-xs text-gray-500 sm:text-sm lg:text-sm">
                     {department}
                 </p>
             </div>
-            <div className="col-span-1 justify-center lg:justify-start block lg:block">
+            <div className="justify-center block col-span-1 lg:justify-start lg:block">
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Button
@@ -93,14 +83,14 @@ const LevelOnePc = ({
                     </DialogTrigger>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle className="text-lg sm:text-xl lg:text-lg font-semibold">
+                            <DialogTitle className="text-lg font-semibold sm:text-xl lg:text-lg">
                                 {fullName}
                             </DialogTitle>
                         </DialogHeader>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
+                        <div className="grid grid-cols-1 gap-4 py-4 sm:grid-cols-2">
                             {/* Contact Numbers */}
                             <div>
-                                <p className="font-medium text-sm sm:text-base">
+                                <p className="text-sm font-medium sm:text-base">
                                     Contact Numbers:
                                 </p>
                                 <div className="flex flex-wrap gap-2 mt-2">
@@ -115,20 +105,20 @@ const LevelOnePc = ({
 
                             {/* Designation */}
                             <div>
-                                <p className="font-medium text-sm sm:text-base">
+                                <p className="text-sm font-medium sm:text-base">
                                     Designation:
                                 </p>
-                                <p className="text-xs sm:text-sm text-gray-600 mt-1">
+                                <p className="mt-1 text-xs text-gray-600 sm:text-sm">
                                     {designation}
                                 </p>
                             </div>
 
                             {/* Department */}
                             <div>
-                                <p className="font-medium text-sm sm:text-base">
+                                <p className="text-sm font-medium sm:text-base">
                                     Department:
                                 </p>
-                                <p className="text-xs sm:text-sm text-gray-600 mt-1">
+                                <p className="mt-1 text-xs text-gray-600 sm:text-sm">
                                     {department}
                                 </p>
                             </div>

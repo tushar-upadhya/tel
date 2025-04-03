@@ -14,12 +14,19 @@ import {
 } from "@/components/ui/select";
 import { setSearchQuery } from "@/features/search/searchQuerySlice";
 import { useDebounce } from "@/hooks/use-debounce";
-import { useFetchGlobalSearchContacts } from "@/hooks/use-telephone-directory";
 import { RootState } from "@/store";
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddToFav from "./add-to-fav/AddToFav";
 import Logo from "./logo/Logo";
+
+// Assuming this is your fetch function (adjust as per your API)
+const fetchGlobalSearchContacts = async (query: string) => {
+    const response = await fetch(`/api/search?query=${query}`); // Replace with your API endpoint
+    if (!response.ok) throw new Error("Failed to fetch search results");
+    return response.json();
+};
 
 interface SearchItem {
     id: string;
@@ -37,16 +44,18 @@ const Header = React.memo(() => {
     const searchQuery = useSelector(
         (state: RootState) => state.searchQuery.query
     );
-    const [searchCategory, setSearchCategory] = useState<string>("fullName");
-    const [open, setOpen] = useState<boolean>(false);
+    const [searchCategory, setSearchCategory] =
+        React.useState<string>("fullName");
+    const [open, setOpen] = React.useState<boolean>(false);
     const debouncedQuery = useDebounce(searchQuery, 300);
-    const { data, isLoading, error } = useFetchGlobalSearchContacts(
-        debouncedQuery
-    ) as {
-        data: SearchItem[] | undefined;
-        isLoading: boolean;
-        error: Error | null;
-    };
+
+    // Use React Query to fetch data
+    const { data, isLoading, error } = useQuery<SearchItem[], Error>({
+        queryKey: ["globalSearchContacts", debouncedQuery, searchCategory],
+        queryFn: () => fetchGlobalSearchContacts(debouncedQuery),
+        enabled: debouncedQuery.length >= 3, // Only fetch when query length is 3 or more
+        staleTime: 5 * 60 * 1000, // Cache data for 5 minutes
+    });
 
     const handleSearchChange = React.useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,12 +63,6 @@ const Header = React.memo(() => {
         },
         [dispatch]
     );
-
-    useEffect(() => {
-        if (debouncedQuery.length >= 3) {
-            console.log("Searching for:", debouncedQuery, "in", searchCategory);
-        }
-    }, [debouncedQuery, searchCategory]);
 
     return (
         <header className="w-full bg-[#C1BAA1]">
@@ -69,6 +72,7 @@ const Header = React.memo(() => {
                     <div className="flex items-center gap-2">
                         <Dialog open={open} onOpenChange={setOpen}>
                             <DialogTrigger asChild>
+                                {/* Uncomment and adjust if you have a SearchBar component */}
                                 {/* <button className="w-full">
                                     <SearchBar
                                         query={searchQuery}

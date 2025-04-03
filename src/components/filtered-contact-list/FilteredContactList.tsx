@@ -40,7 +40,6 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
         return isMatch || filteredChildren.length > 0;
     };
 
-    // Filter contacts based on the recursive function
     const filteredContacts = contacts.filter(filterContacts);
 
     if (filteredContacts.length === 0) {
