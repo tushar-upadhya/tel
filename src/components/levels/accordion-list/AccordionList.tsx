@@ -6,13 +6,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-interface Child {
-    id: number;
-    name: string;
-    color?: string;
-    childrens?: Child[];
-}
+import { Child } from "@/lib/types/type";
 
 interface AccordionListProps {
     childrens?: Child[];

@@ -10,11 +10,9 @@ const CopyNumber = ({ number }: CopyNumberProps) => {
     const { toast } = useToast();
 
     const handleDial = () => {
-        // Create a tel: link to trigger the dial pad
         const telLink = `tel:${number}`;
 
         try {
-            // Attempt to open the dial pad
             window.location.href = telLink;
 
             toast({

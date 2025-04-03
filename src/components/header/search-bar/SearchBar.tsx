@@ -1,15 +1,6 @@
 import { Input } from "@/components/ui/input";
+import { SearchBarProps } from "@/lib/types/type";
 import { SearchIcon } from "lucide-react";
-
-interface SearchBarProps {
-    placeholder?: string;
-    onSearch?: (query: string) => void;
-    className?: string;
-    inputClassName?: string;
-    iconClassName?: string;
-    query: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const SearchBar: React.FC<SearchBarProps> = ({
     placeholder = "Search...",

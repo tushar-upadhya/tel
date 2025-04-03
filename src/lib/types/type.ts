@@ -20,12 +20,34 @@ export interface Contact {
     designation: string;
     department: string;
     contactList: string[];
-    fax: string | null;
-    officialContactList: string[] | null;
-    residentialContactList: string[] | null;
-    address: string | null;
-    privacy: "public" | "private";
-    email: string | null;
-    level: string;
-    seqNo: string;
+    fax?: string | null;
+    officialContactList?: string[] | null;
+    residentialContactList?: string[] | null;
+    address?: string | null;
+    privacy?: "public" | "private";
+    email?: string | null;
+    level?: string;
+    seqNo?: string;
+}
+
+export interface SearchBarProps {
+    placeholder?: string;
+    onSearch?: (query: string) => void;
+    className?: string;
+    inputClassName?: string;
+    iconClassName?: string;
+    query: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface SearchItem {
+    id: string;
+    name: string;
+}
+
+export interface Child {
+    id: number;
+    name: string;
+    color?: string;
+    childrens?: Child[];
 }

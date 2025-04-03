@@ -18,12 +18,10 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
     contacts,
     searchQuery,
 }) => {
-    // Convert search query to lowercase and trim it to avoid empty spaces issues
     const searchLower = searchQuery?.toLowerCase().trim() || "";
 
-    // Recursive function to filter contacts and their children
     const filterContacts = (contact: Contact): boolean => {
-        if (!searchLower) return true; // If no search query, return all contacts
+        if (!searchLower) return true;
 
         const isMatch =
             (contact.fullName?.toLowerCase() ?? "").includes(searchLower) ||

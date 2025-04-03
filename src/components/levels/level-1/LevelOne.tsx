@@ -2,30 +2,11 @@ import { Button } from "@/components/ui/button"; // ✅ Retry Button
 import { Skeleton } from "@/components/ui/skeleton";
 import { setSelectedId } from "@/features/selectedLevelSlice";
 import { useFetchLevelData } from "@/hooks/use-telephone-directory";
+import { Child, Directory } from "@/lib/types/type";
 import { RootState } from "@/store";
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AccordionList from "../accordion-list/AccordionList";
-
-interface Child {
-    id: number;
-    name: string;
-    color?: string;
-    childrens?: Child[];
-}
-
-interface Directory {
-    id: number;
-    name: string;
-    post: string;
-    roomNo: string;
-    contactNo: string;
-    department: string;
-    privacy: "public" | "private";
-    status: "active" | "inactive";
-    color: string | null;
-    childrens: Directory[];
-}
 
 const convertToChild = (directories: Directory[]): Child[] => {
     return directories.map((directory) => ({

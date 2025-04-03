@@ -14,7 +14,7 @@ const LogInSignup: React.FC = () => {
     //   };
 
     return (
-        <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg">
+        <div className="w-full max-w-md p-6 mx-auto bg-white rounded-lg">
             <Tabs defaultValue="login" className="w-full">
                 {/* Tabs List */}
                 <TabsList className="flex justify-center mb-6 transition-all duration-200">

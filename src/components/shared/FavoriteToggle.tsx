@@ -26,7 +26,6 @@ const FavoriteToggle = ({
     );
     const { toast } = useToast();
 
-    // Compute isFavorite directly from Redux state
     const isFavorite = favorites.some((favorite) => favorite.id === id);
 
     const toggleFavorite = () => {
