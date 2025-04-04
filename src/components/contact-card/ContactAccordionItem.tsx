@@ -33,6 +33,7 @@ const ContactAccordionItem: React.FC<ContactAccordionItemProps> = ({
                         className="text-[#5C8374] animate-pulse"
                         fill="currentColor"
                     />
+
                     {contact.fullName || "Unnamed Contact"}
                 </AccordionTrigger>
                 <AccordionContent>
