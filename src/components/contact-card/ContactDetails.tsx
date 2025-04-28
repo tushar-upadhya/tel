@@ -1,7 +1,6 @@
 import { useDebounce } from "@/hooks/use-debounce";
 import { useFetchContactDetails } from "@/hooks/use-telephone-directory";
 import { useState } from "react";
-
 import FilteredContactList from "../filtered-contact-list/FilteredContactList";
 import SearchBar from "../header/search-bar/SearchBar";
 import { Accordion } from "../ui/accordion";
@@ -13,6 +12,7 @@ export interface Contact {
     department: string;
     designation: string;
     contactList: string[];
+    childrens?: Contact[];
 }
 
 interface ContactDetailsProps {
@@ -28,37 +28,28 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
     } = useFetchContactDetails(selectedId);
 
     const [searchQuery, setSearchQuery] = useState<string>("");
-    const debouncedSearchQuery = useDebounce(searchQuery, 300);
-
-    const filterContacts = (contacts: Contact[], query: string): Contact[] => {
-        if (!query) return contacts;
-
-        const lowerQuery = query.toLowerCase();
-
-        return contacts.filter((contact) =>
-            [
-                contact.fullName,
-                contact.department,
-                contact.designation,
-                contact.contactList,
-            ].some((field) => field?.includes(lowerQuery))
-        );
-    };
+    const debouncedSearchQuery = useDebounce(searchQuery, 150);
 
     if (isLoading) return <Skeleton className="w-full h-96" />;
-    if (isError) return <p>Error: {(error as Error).message}</p>;
+    if (isError)
+        return <p>Error: {(error as Error)?.message || "Unknown error"}</p>;
 
+    // Handle invalid data
     const contactsArray = Array.isArray(contactDetails)
         ? contactDetails
-        : contactDetails
+        : contactDetails && typeof contactDetails === "object"
         ? [contactDetails]
         : [];
 
-    if (contactsArray.length === 0) return <p>No contacts available</p>;
+    if (contactsArray.length === 0)
+        return (
+            <p className="font-semibold text-center text-rose-400">
+                No contacts available
+            </p>
+        );
 
     return (
         <>
-            {/* Search Bar */}
             <div className="flex justify-center w-full pt-2 mb-3 sm:mb-4">
                 <SearchBar
                     query={searchQuery}
@@ -67,14 +58,9 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
                     className="justify-start w-full text-sm sm:text-base"
                 />
             </div>
-
-            {/* Filtered Contacts List */}
             <Accordion type="single" collapsible className="mt-2 sm:mt-4">
                 <FilteredContactList
-                    contacts={filterContacts(
-                        contactsArray,
-                        debouncedSearchQuery
-                    )}
+                    contacts={contactsArray}
                     searchQuery={debouncedSearchQuery}
                 />
             </Accordion>

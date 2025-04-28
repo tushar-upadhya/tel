@@ -18,7 +18,7 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
     contacts,
     searchQuery,
 }) => {
-    const searchLower = searchQuery?.toLowerCase().trim() || "";
+    const searchLower = searchQuery?.toLowerCase() || "";
 
     const filterContacts = (contact: Contact): boolean => {
         if (!searchLower) return true;
@@ -26,11 +26,7 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
         const isMatch =
             (contact.fullName?.toLowerCase() ?? "").includes(searchLower) ||
             (contact.department?.toLowerCase() ?? "").includes(searchLower) ||
-            (contact.designation?.toLowerCase() ?? "").includes(searchLower) ||
-            (contact.contactList?.some((contactItem) =>
-                contactItem.toLowerCase().includes(searchLower)
-            ) ??
-                false);
+            (contact.designation?.toLowerCase() ?? "").includes(searchLower);
 
         const filteredChildren =
             contact.childrens?.filter(filterContacts) || [];
@@ -42,7 +38,7 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
 
     if (filteredContacts.length === 0) {
         return (
-            <p className="text-center text-gray-500">
+            <p className="font-semibold text-center text-rose-400">
                 No contacts match your search query.
             </p>
         );

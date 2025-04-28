@@ -12,13 +12,12 @@ const Layout: React.FC = () => {
 
             <div className="flex-grow overflow-hidden">
                 <ScrollArea className="h-full">
-                    <div className="p-4 container mx-auto">
+                    <div className="container p-4 mx-auto">
                         <Outlet />
-
-                        <Toaster />
                     </div>
                 </ScrollArea>
             </div>
+            <Toaster />
 
             <Footer />
         </div>
