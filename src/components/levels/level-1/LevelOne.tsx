@@ -53,8 +53,8 @@ const LevelOne: React.FC = () => {
     if (isError) {
         return (
             <div className="p-4 text-center">
-                <p className="text-red-500">
-                    Error: {(error as Error).message}
+                <p className="font-semibold text-rose-400">
+                    {(error as Error).message}
                 </p>
                 <Button
                     variant="outline"

@@ -110,8 +110,8 @@ const Header: React.FC = () => {
                                 />
                                 {isLoading && <p>Loading...</p>}
                                 {error && (
-                                    <p className="text-red-500">
-                                        Error: {error.message}
+                                    <p className="font-semibold text-rose-400">
+                                        {error.message}
                                     </p>
                                 )}
                                 {data && searchQuery.length >= 3 && (
