@@ -1,11 +1,6 @@
 import { Contact, Directory } from "@/lib/types/type";
-import {
-    fetchContactDetails,
-    fetchLevelData,
-    fetchSearchContacts,
-} from "@/service/api-service";
+import { fetchContactDetails, fetchLevelData } from "@/service/api-service";
 import { useQuery } from "@tanstack/react-query";
-import { useDebounce } from "./use-debounce";
 
 export const useFetchLevelData = (levelId: number) =>
     useQuery<Directory, Error>({
@@ -28,16 +23,3 @@ export const useFetchContactDetails = (id: number | null) =>
         retry: 1,
         placeholderData: undefined,
     });
-
-export const useFetchGlobalSearchContacts = (query: string) => {
-    const debouncedQuery = useDebounce(query, 200);
-    return useQuery<Directory[], Error>({
-        queryKey: ["searchContacts", debouncedQuery],
-        queryFn: () => fetchSearchContacts(debouncedQuery),
-        enabled: !!debouncedQuery && debouncedQuery.length >= 3,
-        staleTime: 2 * 60 * 1000,
-        gcTime: 5 * 60 * 1000,
-        refetchOnWindowFocus: true,
-        retry: 1,
-    });
-};

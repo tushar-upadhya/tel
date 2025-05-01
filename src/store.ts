@@ -1,7 +1,6 @@
 import copiedReducer from "@/features/copiedSlice";
 import favoritesReducer from "@/features/favoritesSlice";
 import favoriteSearchQuerySlice from "@/features/search/favoriteSearchQuerySlice";
-// import globalSearchQueryReducer from "@/features/search/global-search-query";
 import searchQueryReducer from "@/features/search/searchQuerySlice";
 import selectedLevelReducer from "@/features/selectedLevelSlice";
 
@@ -14,7 +13,6 @@ export const store = configureStore({
         searchQuery: searchQueryReducer,
         copied: copiedReducer,
         favoritesSearchQuery: favoriteSearchQuerySlice,
-        // globalSearchQuery: globalSearchQueryReducer,
     },
 });
 

@@ -27,10 +27,10 @@ const getNetworkSpeed = (): number | null => {
 };
 
 const isOnline = (): boolean => {
-    return navigator.onLine !== false; // Fallback to true if undefined
+    return navigator.onLine !== false;
 };
 
-const fetchData = async <T>(url: string): Promise<T> => {
+export const fetchData = async <T>(url: string): Promise<T> => {
     if (!isOnline()) {
         throw new Error(
             "Device is offline. Please check your internet connection."
@@ -107,14 +107,4 @@ export const fetchContactDetails = (id: number): Promise<Contact> => {
         throw new Error("Invalid Contact ID: Must be a positive integer");
     }
     return fetchData<Contact>(`${BASE_URL}/get-contact-details/${id}`);
-};
-
-export const fetchSearchContacts = (query: string): Promise<Directory[]> => {
-    const trimmedQuery = query.trim();
-    if (trimmedQuery.length === 0) {
-        throw new Error("Search query required");
-    }
-    return fetchData<Directory[]>(
-        `${BASE_URL}/search-contacts?query=${encodeURIComponent(trimmedQuery)}`
-    );
 };
