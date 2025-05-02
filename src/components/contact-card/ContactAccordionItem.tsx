@@ -33,8 +33,9 @@ const ContactAccordionItem: React.FC<ContactAccordionItemProps> = ({
                         className="text-[#5C8374] animate-pulse"
                         fill="currentColor"
                     />
-
-                    {contact.fullName || "Unnamed Contact"}
+                    <span className="ml-2 overflow-hidden text-xs font-medium text-gray-800 text-clip sm:text-sm md:text-base lg:text-lg">
+                        {contact.fullName || "Unnamed Contact"}
+                    </span>
                 </AccordionTrigger>
                 <AccordionContent>
                     <ScrollArea className="w-full p-2 overflow-auto border border-gray-200 rounded-md shadow-sm h-92">

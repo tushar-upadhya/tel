@@ -36,7 +36,7 @@ const ContactCard = ({
     const { data: isFavorite, isLoading } = useQuery({
         queryKey: ["favoriteStatus", id],
         queryFn: () => fetchFavoriteStatus(id, favorites),
-        staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+        staleTime: 1000 * 60 * 5,
     });
 
     const contacts = Array.isArray(contactList)
@@ -78,17 +78,19 @@ const ContactCard = ({
             <CardContent className="p-4">
                 <div className="space-y-4">
                     <div>
-                        <p className="text-[min(4vw,1rem)]">Contact Numbers:</p>
+                        <p className="text-[min(4vw,1rem)] font-medium">
+                            Contact Numbers:
+                        </p>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {contacts.slice(0, 3).map((number, index) => (
                                 <CopyNumber key={index} number={number} />
                             ))}
                         </div>
                     </div>
-                    <p className="flex justify-between text-[min(4vw,1rem)]">
+                    <p className="flex justify-between text-[min(4vw,1rem)] font-medium">
                         Designation: <span>{designation}</span>
                     </p>
-                    <p className="flex justify-between text-[min(4vw,1rem)]">
+                    <p className="flex justify-between text-[min(4vw,1rem)] font-medium">
                         Department: <span>{department}</span>
                     </p>
                 </div>

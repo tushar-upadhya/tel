@@ -13,7 +13,7 @@ const Logo: React.FC = () => {
                 alt="Logo"
                 className="object-contain w-12 h-12 mx-auto md:mx-0"
             />
-            <span className="text-[min(4vw,1.2rem)] font-medium text-slate-800">
+            <span className="text-[min(4vw,1.4rem)] font-medium text-slate-800">
                 e-Telephone Directory 2025
                 <br />
                 <span className="text-[min(4vw,0.9rem)]">

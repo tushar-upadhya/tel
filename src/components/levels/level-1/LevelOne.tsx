@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"; // ✅ Retry Button
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { setSelectedId } from "@/features/selectedLevelSlice";
 import { useFetchLevelData } from "@/hooks/use-telephone-directory";
@@ -53,7 +53,7 @@ const LevelOne: React.FC = () => {
     if (isError) {
         return (
             <div className="p-4 text-center">
-                <p className="font-semibold text-rose-400">
+                <p className="p-2 mt-3 text-xs font-semibold text-center text-red-500 bg-red-100 rounded-sm sm:p-3 md:p-4 sm:text-sm md:text-base">
                     {(error as Error).message}
                 </p>
                 <Button

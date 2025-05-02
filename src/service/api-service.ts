@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { SearchItem } from "@/components/header/Header";
 import { Contact, Directory } from "@/lib/types/type";
 
 export const BASE_URL = "http://192.168.30.88:8080/telephone-directory/public";
@@ -58,7 +60,7 @@ export const fetchData = async <T>(url: string): Promise<T> => {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Cache-Control": "no-cache",
+                "Cache-Control": "max-age=300, public",
                 Connection: "keep-alive",
                 "Accept-Encoding": "gzip, deflate, br",
             },
@@ -69,11 +71,11 @@ export const fetchData = async <T>(url: string): Promise<T> => {
 
         if (!response.ok) {
             const status = response.status;
-            throw new Error(
-                `HTTP error ${status}: ${
-                    response.statusText || "Unknown error"
-                }`
-            );
+            let message = `HTTP error ${status}`;
+            if (status === 404) message = "Resource not found";
+            else if (status === 500) message = "Server error occurred";
+            else message = response.statusText || "Unknown error";
+            throw new Error(message);
         }
 
         const contentType = response.headers.get("content-type");
@@ -87,11 +89,13 @@ export const fetchData = async <T>(url: string): Promise<T> => {
 
         if (error instanceof Error) {
             if (error.name === "AbortError") {
-                throw new Error("Request timed out");
+                throw new Error("Request timed out. Please try again.");
             }
             throw error;
         }
-        throw new Error("Network error occurred");
+        throw new Error(
+            "Network error occurred. Please check your connection."
+        );
     }
 };
 
@@ -107,4 +111,30 @@ export const fetchContactDetails = (id: number): Promise<Contact> => {
         throw new Error("Invalid Contact ID: Must be a positive integer");
     }
     return fetchData<Contact>(`${BASE_URL}/get-contact-details/${id}`);
+};
+
+export const fetchGlobalSearchContacts = async (
+    fullNameQuery: string,
+    designationQuery: string,
+    departmentQuery: string
+): Promise<SearchItem[]> => {
+    const params = new URLSearchParams();
+    if (fullNameQuery.trim()) params.append("fname", fullNameQuery.trim());
+    if (designationQuery.trim()) params.append("desg", designationQuery.trim());
+    if (departmentQuery.trim()) params.append("dept", departmentQuery.trim());
+
+    if (!params.toString()) {
+        return [];
+    }
+
+    const url = `${BASE_URL}/search-contacts?${params.toString()}`;
+    const response = await fetchData<any[]>(url);
+
+    return response.map((item) => ({
+        id: item.id?.toString() ?? "",
+        fullName: item.fullName || "Unknown",
+        designation: item.designation || "Unknown",
+        department: item.department || "Unknown",
+        contactList: item.contactList || null,
+    }));
 };

@@ -34,7 +34,6 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
     if (isError)
         return <p>Error: {(error as Error)?.message || "Unknown error"}</p>;
 
-    // Handle invalid data
     const contactsArray = Array.isArray(contactDetails)
         ? contactDetails
         : contactDetails && typeof contactDetails === "object"
@@ -43,7 +42,7 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
 
     if (contactsArray.length === 0)
         return (
-            <p className="font-semibold text-center text-rose-400">
+            <p className="p-2 mt-3 text-xs font-semibold text-center text-red-500 bg-red-100 rounded-sm sm:p-3 md:p-4 sm:text-sm md:text-base">
                 No contacts available
             </p>
         );

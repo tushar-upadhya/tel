@@ -4,19 +4,12 @@ import { SearchIcon } from "lucide-react";
 
 const SearchBar: React.FC<SearchBarProps> = ({
     placeholder = "Search...",
-    onSearch,
     className = "",
     inputClassName = "",
     iconClassName = "",
     query,
     onChange,
 }) => {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        onChange(e);
-        if (onSearch) onSearch(value);
-    };
-
     return (
         <div className={`flex items-center justify-center w-full ${className}`}>
             <div className="relative w-full">
@@ -27,8 +20,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
                     type="text"
                     placeholder={placeholder}
                     value={query}
-                    onChange={handleChange}
-                    className={`pl-8 pr-3 py-2 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C1BAA1] ${inputClassName}`}
+                    onChange={onChange}
+                    className={`pl-8 pr-3 py-2 text-xs border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C1BAA1] w-full ${inputClassName}`}
                 />
             </div>
         </div>

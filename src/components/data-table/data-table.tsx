@@ -36,16 +36,16 @@ export function DataTable<TData, TValue>({
     });
 
     return (
-        <>
-            <div className="container mx-auto overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-                <Table className="min-w-[640px] border border-gray-200">
+        <div className="container mx-auto">
+            <div className="overflow-x-auto lg:overflow-x-visible scrollbar-hidden">
+                <Table className="w-full min-w-full border border-gray-200">
                     <TableHeader className="bg-gray-50">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => (
                                     <TableHead
                                         key={header.id}
-                                        className="px-1 py-2 text-xs font-semibold text-gray-700 sm:px-2 sm:py-3 sm:text-sm"
+                                        className="px-2 py-2 text-xs font-semibold text-gray-700"
                                     >
                                         {header.isPlaceholder
                                             ? null
@@ -72,7 +72,7 @@ export function DataTable<TData, TValue>({
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell
                                             key={cell.id}
-                                            className="px-1 py-2 text-xs sm:px-2 sm:py-3 sm:text-sm"
+                                            className="px-2 py-2 text-xs"
                                         >
                                             {flexRender(
                                                 cell.column.columnDef.cell,
@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({
                             <TableRow>
                                 <TableCell
                                     colSpan={columns.length}
-                                    className="h-24 text-center text-[#FA7275] text-xs sm:text-sm"
+                                    className="h-24 text-center text-[#FA7275] text-xs"
                                 >
                                     No results.
                                 </TableCell>
@@ -95,12 +95,12 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end py-4 space-x-2">
+            <div className="flex items-center justify-end py-6 space-x-2">
                 <Button
                     size="sm"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
-                    className="cursor-pointer text-slate-800 bg-[#FA7275]/20 hover:text-white rounded-md hover:bg-[#FA7275] font-semibold transition-all duration-300 text-xs sm:text-sm px-2 sm:px-4"
+                    className="cursor-pointer text-slate-800 bg-[#FA7275]/20 hover:text-white rounded-md hover:bg-[#FA7275] font-semibold transition-all duration-300 text-xs px-2"
                 >
                     Previous
                 </Button>
@@ -108,11 +108,11 @@ export function DataTable<TData, TValue>({
                     size="sm"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
-                    className="cursor-pointer text-slate-800 bg-[#FA7275]/20 hover:text-white rounded-md hover:bg-[#FA7275] transition-all duration-300 text-xs sm:text-sm px-2 sm:px-4"
+                    className="cursor-pointer text-slate-800 bg-[#FA7275]/20 hover:text-white rounded-md hover:bg-[#FA7275] transition-all duration-300 text-xs px-2"
                 >
                     Next
                 </Button>
             </div>
-        </>
+        </div>
     );
 }

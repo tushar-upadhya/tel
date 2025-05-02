@@ -11,10 +11,8 @@ const CopyNumber = ({ number }: CopyNumberProps) => {
 
     const handleDial = () => {
         const telLink = `tel:${number}`;
-
         try {
             window.location.href = telLink;
-
             toast({
                 title: "Opening Dial Pad",
                 description: `Calling ${number}...`,
@@ -34,10 +32,10 @@ const CopyNumber = ({ number }: CopyNumberProps) => {
             size="sm"
             variant="outline"
             onClick={handleDial}
-            className="flex items-center px-2 py-1 text-sm sm:text-base lg:text-sm"
+            className="flex items-center px-1 py-0.5 text-xs sm:px-2 sm:py-1 sm:text-sm justify-start"
         >
-            <span className="mr-1 text-xs sm:text-sm lg:text-sm">{number}</span>
-            <Copy size={16} className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5" />
+            <span className="mr-1 truncate">{number}</span>
+            <Copy size={12} className="flex-shrink-0 w-3 h-3 sm:w-4 sm:h-4" />
         </Button>
     );
 };

@@ -38,7 +38,7 @@ const FilteredContactList: React.FC<FilteredContactListProps> = ({
 
     if (filteredContacts.length === 0) {
         return (
-            <p className="font-semibold text-center text-rose-400">
+            <p className="p-2 mt-3 text-xs font-semibold text-center text-red-500 bg-red-100 rounded-sm sm:p-3 md:p-4 sm:text-sm md:text-base">
                 No contacts match your search query.
             </p>
         );
