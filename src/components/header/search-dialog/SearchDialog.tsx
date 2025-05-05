@@ -1,7 +1,12 @@
 import { columns } from "@/components/data-table/columns";
 import { DataTable } from "@/components/data-table/data-table";
 import ContactCardSkeleton from "@/components/loading-skeleton/ContactCardSkeleton";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { fetchGlobalSearchContacts } from "@/service/api-service";
 import { useQuery } from "@tanstack/react-query";
@@ -82,9 +87,9 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                 />
             </DialogTrigger>
             <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg">
-                {/* <DialogTitle className="mb-3 text-base font-semibold sm:text-lg">
+                <DialogTitle className="mb-3 text-base font-semibold sm:text-lg">
                     Search Contacts
-                </DialogTitle> */}
+                </DialogTitle>
 
                 <div className="space-y-3 w-[17rem] sm:w-full">
                     <div>
