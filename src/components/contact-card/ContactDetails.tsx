@@ -49,12 +49,12 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
 
     return (
         <>
-            <div className="flex justify-center w-full pt-2 mb-3 sm:mb-4">
+            <div className="flex justify-start w-full pt-2 mb-3 sm:mb-4">
                 <SearchBar
                     query={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search contacts..."
-                    className="justify-start w-full text-sm sm:text-base"
+                    className="w-full max-w-[300px] ml-5 sm:max-w-[81rem] text-sm sm:text-base"
                 />
             </div>
             <Accordion type="single" collapsible className="mt-2 sm:mt-4">

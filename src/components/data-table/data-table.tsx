@@ -36,8 +36,8 @@ export function DataTable<TData, TValue>({
     });
 
     return (
-        <div className="container mx-auto">
-            <div className="overflow-x-auto lg:overflow-x-visible scrollbar-hidden">
+        <div className="container mx-auto w-[rem] sm:min-w-ful">
+            <div className="overflow-x-hidden lg:overflow-x-visible scrollbar-hidden">
                 <Table className="w-full min-w-full border border-gray-200">
                     <TableHeader className="bg-gray-50">
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-end py-6 space-x-2">
+            <div className="flex items-center justify-center py-6 space-x-2">
                 <Button
                     size="sm"
                     onClick={() => table.previousPage()}

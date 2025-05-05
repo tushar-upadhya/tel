@@ -87,11 +87,11 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                 <SearchBar
                     query={fullNameQuery}
                     onChange={(e) => handleSearchChange(e, "fullName")}
-                    placeholder="Search by name..."
+                    placeholder="Search"
                     className="w-[10rem] sm:w-full text-sm cursor-pointer sm:text-base"
                 />
             </DialogTrigger>
-            <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-[#FEF9F5]  rounded-lg">
+            <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg">
                 <DialogTitle className="mb-3 text-base font-semibold sm:text-lg">
                     Search Contacts
                 </DialogTitle>
@@ -108,7 +108,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                             id="fullName"
                             value={fullNameQuery}
                             onChange={(e) => handleSearchChange(e, "fullName")}
-                            placeholder="full name (min: 3 characters)..."
+                            placeholder="full name (min: 3 characters)"
                             className="w-full mt-1 text-xs capitalize"
                         />
                     </div>
@@ -125,7 +125,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                             onChange={(e) =>
                                 handleSearchChange(e, "designation")
                             }
-                            placeholder="designation (min: 3 characters)..."
+                            placeholder="designation (min: 3 characters)"
                             className="w-full mt-1 text-xs capitalize"
                         />
                     </div>
@@ -142,7 +142,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                             onChange={(e) =>
                                 handleSearchChange(e, "department")
                             }
-                            placeholder="department (min: 3 characters)..."
+                            placeholder="department (min: 3 characters)"
                             className="w-full mt-1 text-xs capitalize"
                         />
                     </div>
@@ -158,8 +158,8 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                     </p>
                 )}
                 {!isLoading && data.length > 0 && (
-                    <div className="mt-3 overflow-y-auto">
-                        <div className="container w-[17rem] sm:w-full py-3 mx-auto">
+                    <div className="mt-3 overflow-y-hidden">
+                        <div className=" w-[19.5rem] sm:w-full py-3 mx-auto">
                             <DataTable columns={columns} data={data} />
                         </div>
                     </div>

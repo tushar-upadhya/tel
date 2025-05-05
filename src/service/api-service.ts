@@ -3,6 +3,7 @@ import { SearchItem } from "@/components/header/Header";
 import { Contact, Directory } from "@/lib/types/type";
 
 export const BASE_URL = "http://192.168.30.88:8080/telephone-directory/public";
+// export const BASE_URL = "http://192.168.14.12:8080/telephone-directory/public";
 
 const TIMEOUTS = {
     SLOW: 15000,
