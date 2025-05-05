@@ -76,6 +76,11 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
         [setOpen, clearSearchQueries]
     );
 
+    const hasSearchQuery =
+        debouncedFullNameQuery.trim() !== "" ||
+        debouncedDesignationQuery.trim() !== "" ||
+        debouncedDepartmentQuery.trim() !== "";
+
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger>
@@ -86,7 +91,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                     className="w-[10rem] sm:w-full text-sm cursor-pointer sm:text-base"
                 />
             </DialogTrigger>
-            <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg">
+            <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-[#FEF9F5]  rounded-lg">
                 <DialogTitle className="mb-3 text-base font-semibold sm:text-lg">
                     Search Contacts
                 </DialogTitle>
@@ -103,7 +108,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                             id="fullName"
                             value={fullNameQuery}
                             onChange={(e) => handleSearchChange(e, "fullName")}
-                            placeholder="Enter full name..."
+                            placeholder="full name (min: 3 characters)..."
                             className="w-full mt-1 text-xs capitalize"
                         />
                     </div>
@@ -120,7 +125,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                             onChange={(e) =>
                                 handleSearchChange(e, "designation")
                             }
-                            placeholder="Enter designation..."
+                            placeholder="designation (min: 3 characters)..."
                             className="w-full mt-1 text-xs capitalize"
                         />
                     </div>
@@ -137,7 +142,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                             onChange={(e) =>
                                 handleSearchChange(e, "department")
                             }
-                            placeholder="Enter department..."
+                            placeholder="department (min: 3 characters)..."
                             className="w-full mt-1 text-xs capitalize"
                         />
                     </div>
@@ -149,7 +154,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                 )}
                 {error && (
                     <p className="p-2 mt-3 text-xs font-semibold text-center text-red-500 bg-red-100 rounded-sm sm:p-3 md:p-4 sm:text-sm md:text-base">
-                        {(error as Error).message}
+                        {error.message}
                     </p>
                 )}
                 {!isLoading && data.length > 0 && (
@@ -159,7 +164,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                         </div>
                     </div>
                 )}
-                {!isLoading && data.length === 0 && (
+                {!isLoading && data.length === 0 && hasSearchQuery && (
                     <p className="p-2 mt-3 text-xs font-semibold text-center text-red-500 bg-red-100 rounded-sm sm:p-3 md:p-4 sm:text-sm md:text-base">
                         No results found
                     </p>
