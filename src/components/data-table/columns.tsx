@@ -5,7 +5,7 @@ import CopyNumber from "../shared/CopyNumber";
 export const columns: ColumnDef<SearchItem>[] = [
     {
         id: "mobileView",
-        header: () => null, // No header for mobile
+        header: () => null,
         cell: ({ row }) => {
             const fullName = row.getValue("fullName") as string;
             const designation = row.getValue("designation") as string;
