@@ -6,6 +6,15 @@ import SearchBar from "../header/search-bar/SearchBar";
 import { Accordion } from "../ui/accordion";
 import { Skeleton } from "../ui/skeleton";
 
+export interface Contact {
+    id: number;
+    fullName: string;
+    department: string;
+    designation: string;
+    contactList: string[];
+    childrens?: Contact[];
+}
+
 interface ContactDetailsProps {
     selectedId: number | null;
 }
