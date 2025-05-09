@@ -46,8 +46,8 @@ const Header: React.FC = () => {
         <header className="w-full bg-[#C1BAA1]">
             <div className="container flex flex-wrap items-center justify-between p-4 mx-auto">
                 <Logo />
-                <div className="flex flex-wrap items-center justify-center gap-4 mt-4 md:mt-0">
-                    <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center justify-center md:mt-0">
+                    <div className="flex items-start">
                         <SearchDialog
                             open={open}
                             setOpen={setOpen}

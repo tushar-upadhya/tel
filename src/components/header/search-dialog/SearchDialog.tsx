@@ -128,7 +128,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                 />
             </DialogTrigger>
 
-            <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg">
+            <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg max-h-[80vh] overflow-y-auto">
                 <DialogTitle className="mb-3 text-base font-semibold sm:text-lg">
                     Search Contacts
                 </DialogTitle>
