@@ -5,7 +5,7 @@ import React from "react";
 
 const SearchBar: React.FC<SearchBarProps> = React.memo(
     ({
-        placeholder = "Search...",
+        placeholder = "Looking for a familiar name?",
         className = "",
         inputClassName = "",
         iconClassName = "",

@@ -34,19 +34,19 @@ const FavoritesPage: React.FC = () => {
 
     return (
         <div className="p-6">
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
                 <h1 className="text-2xl font-semibold text-gray-800">
                     Favorites
                 </h1>
                 <SearchBar
                     query={searchQuery}
                     onChange={handleSearchChange}
-                    placeholder="Search favorites..."
+                    placeholder="Who's your go-to person today?"
                     className="w-full"
                 />
             </div>
 
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filteredFavorites.length > 0 ? (
                     filteredFavorites.map((contact, index) => (
                         <Card
@@ -54,7 +54,7 @@ const FavoritesPage: React.FC = () => {
                             className="bg-[#FEF9F5] w-full cursor-pointer"
                         >
                             <CardHeader className="flex justify-between items-center p-4 bg-[#F7EDE2] rounded-t-lg">
-                                <div className="flex justify-between items-center w-full gap-4">
+                                <div className="flex items-center justify-between w-full gap-4">
                                     <p className="text-[min(3.5vw,1rem)] font-semibold tracking-wide">
                                         {contact.fullName}
                                     </p>

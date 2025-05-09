@@ -123,7 +123,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                 <SearchBar
                     query={fullNameQuery}
                     onChange={(e) => handleSearchChange(e, "fullName")}
-                    placeholder="Search"
+                    placeholder="Find someone..."
                     className="w-[10rem] sm:w-full text-sm cursor-pointer sm:text-base"
                 />
             </DialogTrigger>
