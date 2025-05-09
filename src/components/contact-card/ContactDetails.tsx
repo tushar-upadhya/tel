@@ -53,7 +53,7 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
                 <SearchBar
                     query={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Your go-to contact is just a few letters away...."
+                    placeholder="Your go-to contact is just a few letters away"
                     className="w-full max-w-[300px] ml-5 sm:max-w-[81rem] text-sm sm:text-base"
                 />
             </div>

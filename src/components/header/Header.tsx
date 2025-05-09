@@ -44,25 +44,31 @@ const Header: React.FC = () => {
 
     return (
         <header className="w-full bg-[#C1BAA1]">
-            <div className="container flex flex-wrap items-center justify-between p-4 mx-auto">
-                <Logo />
-                <div className="flex flex-wrap items-center justify-center md:mt-0">
-                    <div className="flex items-start">
-                        <SearchDialog
-                            open={open}
-                            setOpen={setOpen}
-                            fullNameQuery={fullNameQuery}
-                            designationQuery={designationQuery}
-                            departmentQuery={departmentQuery}
-                            debouncedFullNameQuery={debouncedFullNameQuery}
-                            debouncedDesignationQuery={
-                                debouncedDesignationQuery
-                            }
-                            debouncedDepartmentQuery={debouncedDepartmentQuery}
-                            handleSearchChange={handleSearchChange}
-                            clearSearchQueries={clearSearchQueries}
-                        />
-                        <AddToFav />
+            <div className="container px-4 py-3 mx-auto">
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <Logo />
+                    <div className="flex flex-wrap items-center justify-between w-full gap-2 md:w-auto">
+                        <div className="flex-1 min-w-0">
+                            <SearchDialog
+                                open={open}
+                                setOpen={setOpen}
+                                fullNameQuery={fullNameQuery}
+                                designationQuery={designationQuery}
+                                departmentQuery={departmentQuery}
+                                debouncedFullNameQuery={debouncedFullNameQuery}
+                                debouncedDesignationQuery={
+                                    debouncedDesignationQuery
+                                }
+                                debouncedDepartmentQuery={
+                                    debouncedDepartmentQuery
+                                }
+                                handleSearchChange={handleSearchChange}
+                                clearSearchQueries={clearSearchQueries}
+                            />
+                        </div>
+                        <div className="shrink-0">
+                            <AddToFav />
+                        </div>
                     </div>
                 </div>
             </div>

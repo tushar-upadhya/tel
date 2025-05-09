@@ -119,21 +119,21 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
 
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
-            <DialogTrigger>
+            <DialogTrigger className="flex w-full sm:w-auto">
                 <SearchBar
                     query={fullNameQuery}
                     onChange={(e) => handleSearchChange(e, "fullName")}
-                    placeholder="Find someone..."
-                    className="w-[10rem] sm:w-full text-sm cursor-pointer sm:text-base"
+                    placeholder="Find someone"
+                    className="w-full sm:w-[15rem] text-sm sm:text-base cursor-pointer"
                 />
             </DialogTrigger>
 
-            <DialogContent className="max-w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg max-h-[80vh] overflow-y-auto">
+            <DialogContent className="w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg max-h-[80vh] overflow-y-auto">
                 <DialogTitle className="mb-3 text-base font-semibold sm:text-lg">
-                    Search Contacts
+                    🔍 Explore Team Directory
                 </DialogTitle>
 
-                <div className="space-y-3 w-[17rem] sm:w-full">
+                <div className="w-full space-y-3 sm:w-full">
                     <SearchInput
                         label="Full Name"
                         id="fullName"
@@ -154,7 +154,6 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                     />
                 </div>
 
-                {/* States */}
                 <div className="mt-3">
                     {isLoading && (
                         <div className="flex items-center justify-center">
@@ -169,8 +168,10 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                     )}
 
                     {!isLoading && data.length > 0 && (
-                        <div className="mt-3 overflow-y-hidden w-[19.5rem] sm:w-full mx-auto">
-                            <DataTable columns={columns} data={data} />
+                        <div className="mt-3 overflow-x-auto">
+                            <div className="min-w-[18rem] sm:min-w-full">
+                                <DataTable columns={columns} data={data} />
+                            </div>
                         </div>
                     )}
 
