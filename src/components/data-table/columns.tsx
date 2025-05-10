@@ -15,18 +15,18 @@ export const columns: ColumnDef<SearchItem>[] = [
             // Render only on mobile screens
             return (
                 <div className="flex items-start justify-between gap-2 text-xs sm:hidden">
-                    <div className="flex flex-col min-w-0 gap-1">
-                        <span className="font-bold text-gray-700 truncate max-w-[120px]">
+                    <div className="flex flex-col">
+                        <span className="font-bold text-gray-700 max-w-[120px] truncate">
                             {fullName}
                         </span>
-                        <span className="text-gray-700 truncate max-w-[120px]">
+                        <span className="text-gray-700 max-w-[120px]">
                             {designation}
                         </span>
-                        <span className="text-gray-700 truncate max-w-[120px]">
+                        <span className="text-gray-700 max-w-[120px]">
                             {department}
                         </span>
                     </div>
-                    <div className="flex flex-col gap-1 min-w-[80px]">
+                    <div className="flex flex-col gap-1 ml-1 min-w-[80px]">
                         {contact ? (
                             contact
                                 .split(",")
@@ -42,9 +42,11 @@ export const columns: ColumnDef<SearchItem>[] = [
             );
         },
     },
+
+    // desktop view columns
     {
         accessorKey: "fullName",
-        header: () => <span className="hidden sm:block">Name</span>, // Hide header on mobile
+        header: () => <span className="hidden sm:block">Name</span>,
         cell: ({ row }) => (
             <div className="hidden sm:block text-gray-700 text-xs min-w-[60px] max-w-[100px] font-bold">
                 {row.getValue("fullName")}
@@ -53,7 +55,7 @@ export const columns: ColumnDef<SearchItem>[] = [
     },
     {
         accessorKey: "designation",
-        header: () => <span className="hidden sm:block">Designation</span>, // Hide header on mobile
+        header: () => <span className="hidden sm:block">Designation</span>,
         cell: ({ row }) => (
             <div className="hidden sm:block text-gray-700 text-xs min-w-[50px] max-w-[80px]">
                 {row.getValue("designation")}

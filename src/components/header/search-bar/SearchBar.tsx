@@ -16,7 +16,9 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
             <div
                 className={`flex items-center justify-center w-full ${className}`}
             >
-                <div className="relative w-full">
+                <div className="relative w-full min-w-0">
+                    {" "}
+                    {/* 👈 added min-w-0 */}
                     <label htmlFor="search" className="sr-only">
                         Search
                     </label>

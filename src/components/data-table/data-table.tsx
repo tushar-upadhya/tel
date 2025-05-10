@@ -41,7 +41,7 @@ export function DataTable<TData, TValue>({
     });
 
     return (
-        <div className="w-full max-w-screen-xl mx-auto sm:px-6">
+        <div className="w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] md:w-[calc(100%-3rem)] lg:w-[calc(100%-4rem)] xl:w-[calc(100%-5rem)] 2xl:w-[calc(100%-6rem)]">
             <div className="overflow-x-auto scrollbar-hidden">
                 <div className="md:max-h-[calc(100vh-200px)] md:overflow-y-auto">
                     <Table

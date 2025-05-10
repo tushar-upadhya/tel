@@ -47,7 +47,7 @@ const SearchInput = ({
         <div className="relative">
             <label
                 htmlFor={id}
-                className="block py-2 text-xs font-medium text-gray-700"
+                className="block py-2 text-xs font-medium text-gray-700 sm:text-sm"
             >
                 {label}
             </label>
@@ -56,12 +56,12 @@ const SearchInput = ({
                 value={value}
                 onChange={onChange}
                 placeholder={`${label.toLowerCase()} (min: 3 characters)`}
-                className="w-full pr-10 -mt-1 text-xs"
+                className="w-full px-3 pr-10 text-xs border-gray-300 rounded-full sm:px-4 sm:text-sm focus:ring-2 focus:ring-blue-500"
             />
             {isValid && (
                 <CheckCircle
                     size={18}
-                    className="absolute text-green-500 right-2 top-9 animate-bounce"
+                    className="absolute mt-2 text-green-500 -translate-y-1/4 right-2 top-1/2 animate-bounce"
                 />
             )}
         </div>
@@ -124,16 +124,16 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                     query={fullNameQuery}
                     onChange={(e) => handleSearchChange(e, "fullName")}
                     placeholder="Find someone"
-                    className="w-full sm:w-[15rem] text-sm sm:text-base cursor-pointer"
+                    className="w-full max-w-xs text-sm border-gray-300 rounded-full cursor-pointer sm:max-w-sm sm:text-base focus:ring-2 focus:ring-blue-500"
                 />
             </DialogTrigger>
 
-            <DialogContent className="w-[95vw] sm:max-w-2xl p-3 sm:p-4 bg-white rounded-lg max-h-[80vh] overflow-y-auto">
-                <DialogTitle className="mb-3 text-base font-semibold sm:text-lg">
+            <DialogContent className="w-[90vw] sm:max-w-3xl p-4 sm:p-6 bg-white rounded-lg max-h-[80vh] flex flex-col">
+                <DialogTitle className="mb-4 text-base font-semibold sm:text-lg">
                     🔍 Explore Team Directory
                 </DialogTitle>
 
-                <div className="w-full space-y-3 sm:w-full">
+                <div className="w-full max-w-full space-y-3">
                     <SearchInput
                         label="Full Name"
                         id="fullName"
@@ -154,7 +154,7 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                     />
                 </div>
 
-                <div className="mt-3">
+                <div className="flex-1 mt-3 overflow-y-auto">
                     {isLoading && (
                         <div className="flex items-center justify-center">
                             <ContactCardSkeleton />
@@ -162,21 +162,21 @@ const SearchDialog: React.FC<SearchDialogProps> = ({
                     )}
 
                     {error && (
-                        <p className="p-2 text-xs font-semibold text-center text-red-500 bg-red-100 rounded-sm sm:p-3 sm:text-sm md:text-base">
+                        <p className="p-3 text-sm text-center text-red-500 bg-red-100 rounded-sm">
                             {error.message}
                         </p>
                     )}
 
                     {!isLoading && data.length > 0 && (
-                        <div className="mt-3 overflow-x-auto">
-                            <div className="min-w-[18rem] sm:min-w-full">
+                        <div className="overflow-x-auto">
+                            <div className="w-full">
                                 <DataTable columns={columns} data={data} />
                             </div>
                         </div>
                     )}
 
                     {!isLoading && data.length === 0 && hasSearchQuery && (
-                        <p className="p-2 text-xs font-semibold text-center text-red-500 bg-red-100 rounded-sm sm:p-3 sm:text-sm md:text-base">
+                        <p className="p-3 text-sm text-center text-red-500 bg-red-100 rounded-sm">
                             No results found
                         </p>
                     )}
