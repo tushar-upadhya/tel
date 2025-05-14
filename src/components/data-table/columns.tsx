@@ -19,14 +19,14 @@ export const columns: ColumnDef<SearchItem>[] = [
                         <span className="font-bold text-gray-700 max-w-[120px] truncate">
                             {fullName}
                         </span>
-                        <span className="text-gray-700 max-w-[120px]">
+                        <span className="text-gray-700 max-w-[120px] truncate">
                             {designation}
                         </span>
-                        <span className="text-gray-700 max-w-[120px]">
+                        <span className="text-gray-700 max-w-[120px] truncate">
                             {department}
                         </span>
                     </div>
-                    <div className="flex flex-col gap-1 ml-1 min-w-[80px]">
+                    <div className="flex flex-col gap-1 ml-1 min-w-[50px]">
                         {contact ? (
                             contact
                                 .split(",")
@@ -35,7 +35,7 @@ export const columns: ColumnDef<SearchItem>[] = [
                                     <CopyNumber key={index} number={number} />
                                 ))
                         ) : (
-                            <span className="text-gray-700">N/A</span>
+                            <span className="text-gray-700"></span>
                         )}
                     </div>
                 </div>
@@ -86,7 +86,7 @@ export const columns: ColumnDef<SearchItem>[] = [
                                 <CopyNumber key={index} number={number} />
                             ))
                     ) : (
-                        <div className="text-xs text-gray-700">N/A</div>
+                        <div className="text-xs text-gray-700"></div>
                     )}
                 </div>
             );

@@ -30,7 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
                         placeholder={placeholder}
                         value={query}
                         onChange={onChange}
-                        className={`w-full pl-8 pr-3 py-2 text-xs sm:text-sm border border-gray-300 placeholder:text-[0.75rem] placeholder:sm:text-sm placeholder:md:text-base placeholder:lg:text-lg ${inputClassName}`}
+                        className={`w-full pl-8 pr-3 py-2 text-xs sm:text-sm border border-gray-300 placeholder:text-[0.70rem] placeholder:sm:text-xs placeholder:md:text-base placeholder:lg:text-sm ${inputClassName}`}
                     />
                 </div>
             </div>
