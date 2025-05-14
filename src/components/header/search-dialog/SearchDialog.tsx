@@ -56,7 +56,7 @@ const SearchInput = ({
                 value={value}
                 onChange={onChange}
                 placeholder={`${label.toLowerCase()} (min: 3 characters)`}
-                className="w-full px-3 pr-10 text-xs border-gray-300 rounded-full sm:px-4 sm:text-sm focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 pr-10 text-xs border-gray-300 rounded-full placeholder:capitalize sm:px-4 sm:text-sm "
             />
             {isValid && (
                 <CheckCircle

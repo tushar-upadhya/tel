@@ -77,9 +77,9 @@ const ContactCard = ({
             </CardHeader>
             <CardContent className="p-4 space-y-4">
                 <div>
-                    <p className="text-xs font-medium sm:text-sm md:text-base">
+                    {/* <p className="text-xs font-medium sm:text-sm md:text-base">
                         Contact Numbers:
-                    </p>
+                    </p> */}
                     <div className="flex flex-wrap gap-2 mt-2">
                         {contacts.slice(0, 3).map((number, index) => (
                             <CopyNumber key={index} number={number} />

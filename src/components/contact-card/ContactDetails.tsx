@@ -54,7 +54,7 @@ const ContactDetails = ({ selectedId }: ContactDetailsProps) => {
                     query={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Your go-to contact is just a few letters away"
-                    className="w-full max-w-[300px] ml-5 sm:max-w-[81rem] text-sm sm:text-base"
+                    className="w-full max-w-[300px] sm:max-w-[81rem] text-[0.75rem] sm:text-sm md:text-base lg:text-lg placeholder:text-[0.75rem] placeholder:sm:text-xs placeholder:md:text-base placeholder:lg:text-lg"
                 />
             </div>
             <Accordion type="single" collapsible className="mt-2 sm:mt-4">

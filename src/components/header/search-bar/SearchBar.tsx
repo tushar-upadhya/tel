@@ -17,8 +17,6 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
                 className={`flex items-center justify-center w-full ${className}`}
             >
                 <div className="relative w-full min-w-0">
-                    {" "}
-                    {/* 👈 added min-w-0 */}
                     <label htmlFor="search" className="sr-only">
                         Search
                     </label>
@@ -32,7 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = React.memo(
                         placeholder={placeholder}
                         value={query}
                         onChange={onChange}
-                        className={`w-full pl-8 pr-3 py-2 text-xs sm:text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#C1BAA1] ${inputClassName}`}
+                        className={`w-full pl-8 pr-3 py-2 text-xs sm:text-sm border border-gray-300 placeholder:text-[0.75rem] placeholder:sm:text-sm placeholder:md:text-base placeholder:lg:text-lg ${inputClassName}`}
                     />
                 </div>
             </div>
