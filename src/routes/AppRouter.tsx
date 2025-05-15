@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 const AppRouter: React.FC = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/telephone">
             <Routes>
                 <Route element={<Layout />}>
                     <Route path="/" element={<HomePage />} />
