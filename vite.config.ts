@@ -3,10 +3,11 @@ import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+    base: "/telephone/",
+    plugins: [react()],
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "./src"),
+        },
     },
-  },
 });

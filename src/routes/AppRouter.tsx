@@ -1,9 +1,10 @@
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import Layout from "@/layout/Layout";
 import FavoritesPage from "@/pages/favorites/FavoritesPage";
 import HomePage from "@/pages/home/HomePage";
 import LoginPage from "@/pages/login-page/LoginPage";
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router";
 
 const AppRouter: React.FC = () => {
     return (
