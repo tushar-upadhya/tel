@@ -53,6 +53,7 @@ const ContactAccordionItem: React.FC<ContactAccordionItemProps> = ({
                     </ScrollArea>
                 </AccordionContent>
             </AccordionItem>
+            jetbrains
         </div>
 
         {/* Desktop View */}
